@@ -1,0 +1,47 @@
+extends Node2D
+
+const BOUNCING_BALL = preload("res://entities/boucing_ball.tscn")
+
+## Number of balls that will be emitted in the next round
+@export var ball_count: int = 1:
+	set(count_in):
+		ball_count = count_in
+		balls_left = ball_count
+		update_ball_counter()
+
+@onready var launch_line_2d: Line2D = $LaunchLine2D
+@onready var total_balls_label: Label = $TotalBallsLabel
+
+var target_point: Vector2
+var preparing_to_fire: bool = false
+var balls_left: int = 1:
+	set(count_in):
+		balls_left = count_in
+		update_ball_counter()
+		
+
+func _ready() -> void:
+	update_ball_counter()
+	
+	
+func update_ball_counter() -> void:		
+	if total_balls_label != null:
+		if balls_left <= 0:
+			total_balls_label.text = ''
+		else:
+			total_balls_label.text = 'x' + str(balls_left)
+		
+
+func show_launch_line_to( point: Vector2 ) -> void:
+	target_point = point
+	var end_point := Vector2( point - global_position ).normalized() * 1024
+	launch_line_2d.set_point_position(1, end_point)
+	launch_line_2d.visible = true
+
+
+func launch_ball() -> BouncingBall:
+	var ball:BouncingBall = BOUNCING_BALL.instantiate()
+	ball.global_position = global_position
+	ball.velocity = Vector2( target_point - global_position ).normalized() * ball.SPEED
+	balls_left -= 1
+	return ball

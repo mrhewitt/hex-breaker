@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddqy4gf7na4l2"]
+
+[ext_resource type="Texture2D" uid="uid://b5djbr066ef7b" path="res://assets/blocks/test-hex.png" id="1_0m2rm"]
+[ext_resource type="Script" uid="uid://csggjm4rmpn07" path="res://entities/blocks/block.gd" id="1_bknyb"]
+[ext_resource type="FontFile" uid="uid://djp7yayy6aac7" path="res://assets/font/Urban Shadow Sans Serif.otf" id="3_qq57b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l6q0g"]
+font = ExtResource("3_qq57b")
+font_size = 54
+font_color = Color(0.9079417, 0.9079417, 0.90794164, 1)
+outline_size = 2
+outline_color = Color(0, 0.13292283, 0.13497394, 1)
+shadow_size = 2
+shadow_color = Color(0.023529412, 0.023529412, 0.023529412, 0.4627451)
+shadow_offset = Vector2(2, 2)
+
+[node name="Block" type="StaticBody2D" groups=["block"]]
+collision_layer = 2
+script = ExtResource("1_bknyb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -50, 42, -24, 42, 26, 0, 50, -42, 24, -42, -25)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0m2rm")
+
+[node name="HitCountLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -45.0
+offset_top = -27.0
+offset_right = 45.0
+offset_bottom = 37.0
+size_flags_horizontal = 4
+text = "199"
+label_settings = SubResource("LabelSettings_l6q0g")
+horizontal_alignment = 1
+vertical_alignment = 1
