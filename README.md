@@ -1,6 +1,6 @@
 # 20 Game Challenge : Hex Breaker
 
-Game #2'ish (again!) in my attempt at the [20 game challenge](https://20_games_challenge.gitlab.io/challenge/) - Breakout and Space Invaders mash-up!
+Game #2'ish (again!) in my attempt at the [20 game challenge](https://20_games_challenge.gitlab.io/challenge/) - Hex Breaker!
 
 A breakout type game, but more in a "puzzle" style than arcade style, no paddle movement.
 
@@ -10,6 +10,9 @@ you have available to you increases with each round, and from additional bonus p
 
 TBD: See it in action on Itch.io:  [Hex Breaker](https://daddio-dragonslayer.itch.io/)
 
+TBD screenshots
+
+Prototype only for now
 
 ## What is the 20 game challenge?
 
@@ -20,3 +23,5 @@ TBD: See it in action on Itch.io:  [Hex Breaker](https://daddio-dragonslayer.itc
 
 
 ## Credits
+
+TBD
