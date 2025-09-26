@@ -34,7 +34,7 @@ func update_ball_counter() -> void:
 
 func show_launch_line_to( point: Vector2 ) -> void:
 	target_point = point
-	var end_point := Vector2( point - global_position ).normalized() * 1024
+	var end_point := Vector2( point - global_position ).normalized() * 312
 	launch_line_2d.set_point_position(1, end_point)
 	launch_line_2d.visible = true
 

@@ -1,0 +1,32 @@
+extends CharacterBody2D
+
+const SPEED = 200.0
+
+## emitted when play button has been pressed, but after particle animation is done
+signal play_pressed
+
+@onready var gpu_particles_2d: GPUParticles2D = $GPUParticles2D
+@onready var ball_highlight: Node2D = $Sprite2D/BallHighlight
+@onready var play_button: Button = $PlayButton
+
+var is_stopped: bool = false
+
+
+func _ready() -> void:
+	velocity = Vector2.from_angle( randi_range(0,TAU) ).normalized() * SPEED
+
+
+func _physics_process(delta: float) -> void:
+	if !is_stopped:
+		var collision = move_and_collide(velocity * delta)
+		if collision:
+			velocity = velocity.bounce(collision.get_normal()).normalized() * SPEED  
+
+
+func _on_gpu_particles_2d_finished() -> void:
+	play_pressed.emit()
+
+
+func _on_pressed() -> void:
+	play_button.visible = false
+	gpu_particles_2d.emitting = true
