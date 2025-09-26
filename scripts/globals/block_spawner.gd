@@ -56,7 +56,7 @@ func set_level_node(_level_node: Control) -> void:
 func next_level() -> void:
 	# make sure all bouncing balls are cleared, one will be start point, but
 	# in case of bugs, just make it clean
-	for ball in get_tree().get_nodes_in_group(Groups.BLOCK):
+	for ball in get_tree().get_nodes_in_group(Groups.BOUNCING_BALLS):
 		ball.queue_free()
 	level += 1
 	init_level()

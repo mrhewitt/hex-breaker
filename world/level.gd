@@ -40,7 +40,7 @@ func _on_launch_timer_timeout() -> void:
 	
 	
 func level_complete() -> void:
-	for wall in get_tree().get_nodes_in_group('wall'):		
+	for wall in get_tree().get_nodes_in_group(Groups.WALL):		
 		if wall.is_base_wall:
 			await move_to_start_point(wall.restart_point).finished			
 			break
@@ -59,7 +59,7 @@ func move_to_start_point( restart_point: Vector2 ) -> Tween:
 
 func _on_base_wall_selected(base_wall: BoundaryWall) -> void:
 	move_to_start_point(base_wall.restart_point)
-	for wall in get_tree().get_nodes_in_group('wall'):
+	for wall in get_tree().get_nodes_in_group(Groups.WALL):
 		if wall != base_wall:
 			wall.is_base_wall = false
 	
