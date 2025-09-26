@@ -1,6 +1,6 @@
 extends Node2D
 
-const BOUNCING_BALL = preload("res://entities/boucing_ball.tscn")
+const BOUNCING_BALL = preload("res://entities/bouncing_ball.tscn")
 
 ## Number of balls that will be emitted in the next round
 @export var ball_count: int = 1:

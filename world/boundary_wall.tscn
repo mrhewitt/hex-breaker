@@ -12,6 +12,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 10.0
 offset_bottom = 10.0
+mouse_filter = 1
 script = ExtResource("1_ccu8h")
 
 [node name="ColorRect" type="ColorRect" parent="."]

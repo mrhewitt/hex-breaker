@@ -1,8 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddqy4gf7na4l2"]
+[gd_scene load_steps=11 format=3 uid="uid://ddqy4gf7na4l2"]
 
 [ext_resource type="Texture2D" uid="uid://b5djbr066ef7b" path="res://assets/blocks/test-hex.png" id="1_0m2rm"]
 [ext_resource type="Script" uid="uid://csggjm4rmpn07" path="res://entities/blocks/block.gd" id="1_bknyb"]
+[ext_resource type="Shader" uid="uid://cynpqopwmf8qj" path="res://entities/blocks/hit_flash.gdshader" id="2_l6q0g"]
 [ext_resource type="FontFile" uid="uid://djp7yayy6aac7" path="res://assets/font/Urban Shadow Sans Serif.otf" id="3_qq57b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pl2j7"]
+resource_local_to_scene = true
+shader = ExtResource("2_l6q0g")
+shader_parameter/flash_color = Color(1, 0.98950195, 0.984375, 1)
+shader_parameter/flash_value = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_l6q0g"]
 font = ExtResource("3_qq57b")
@@ -14,6 +21,56 @@ shadow_size = 2
 shadow_color = Color(0.023529412, 0.023529412, 0.023529412, 0.4627451)
 shadow_offset = Vector2(2, 2)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qq57b"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 45.86
+inherit_velocity_ratio = 0.13
+spread = 180.0
+initial_velocity_min = 28.849998
+initial_velocity_max = 129.81
+gravity = Vector3(0, 156, 0)
+scale_min = 0.0
+scale_max = 15.179999
+color = Color(0.70007324, 0.88688755, 0.96875, 1)
+
+[sub_resource type="Animation" id="Animation_l6q0g"]
+resource_name = "hit_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_pl2j7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8w6hu"]
+_data = {
+&"RESET": SubResource("Animation_pl2j7"),
+&"hit_flash": SubResource("Animation_l6q0g")
+}
+
 [node name="Block" type="StaticBody2D" groups=["block"]]
 collision_layer = 2
 script = ExtResource("1_bknyb")
@@ -22,6 +79,7 @@ script = ExtResource("1_bknyb")
 polygon = PackedVector2Array(0, -50, 42, -24, 42, 26, 0, 50, -42, 24, -42, -25)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_pl2j7")
 texture = ExtResource("1_0m2rm")
 
 [node name="HitCountLabel" type="Label" parent="."]
@@ -35,3 +93,17 @@ text = "199"
 label_settings = SubResource("LabelSettings_l6q0g")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BurstParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_qq57b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8w6hu")
+}
+
+[connection signal="finished" from="BurstParticles2D" to="." method="_on_burst_particles_2d_finished"]

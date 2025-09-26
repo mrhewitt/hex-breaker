@@ -1,4 +1,4 @@
-@tool 
+@tool
 extends Node2D
 
 const STARTING_RADIUS = 16.0
@@ -37,6 +37,6 @@ func _draw() -> void:
 	)
 	
 	
-func reset_state(loop: int) -> void:
+func reset_state(_loop: int) -> void:
 	_radius = STARTING_RADIUS
 	_color = color

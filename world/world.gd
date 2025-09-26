@@ -12,3 +12,8 @@ func _ready() -> void:
 
 func _on_level_updated(_level: int) -> void:
 	round_label.text = str(_level)
+
+
+func _on_drop_button_pressed() -> void:
+	for ball in get_tree().get_nodes_in_group('bouncing_balls'):
+		ball.drop_to_ground()

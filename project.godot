@@ -20,6 +20,9 @@ Screenshot="*res://scripts/globals/screenshot.gd"
 SfxPlayer="*res://scripts/globals/sfx_player.gd"
 MusicPlayer="*res://scripts/globals/music_player.gd"
 BlockSpawner="*res://scripts/globals/block_spawner.gd"
+GameManager="*res://scripts/globals/game_manager.gd"
+HighScoreManager="*res://scripts/globals/high_score_manager.gd"
+Groups="*res://scripts/globals/groups.gd"
 
 [display]
 
@@ -35,6 +38,7 @@ window/stretch/aspect="keep_width"
 block=""
 bouncing_balls=""
 wall=""
+bonus_block=""
 
 [input]
 

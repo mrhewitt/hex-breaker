@@ -8,11 +8,21 @@ const HEX_WIDTH = 100*SCALE
 const HEX_HEIGHT = 85*SCALE
 const HEX_RADIUS = 50
 
+const ODDR_DIRECTION_DIFFERENCES = [
+   # even rows 
+	[[+1,  0], [ 0, -1], [-1, -1], 
+	 [-1,  0], [-1, +1], [ 0, +1]],
+   # odd rows 
+	[[+1,  0], [+1, -1], [ 0, -1], 
+	 [-1,  0], [ 0, +1], [+1, +1]],
+]
+
 # spacing between each "row" of hexs, as they interlock the spacing
 # between centers is a fraction of actual hex radius  
 const ROW_SPACING: float = (3./2)*HEX_RADIUS
 
 const BLOCK = preload("uid://ddqy4gf7na4l2")
+const HAMMER_BLOCK = preload("uid://ddnv4ois0lm0s")
 
 # which type of row is at the top:
 # ODD_R - full row of hexes, odd numbered rows are pushed to right (except it our implementation
@@ -27,7 +37,8 @@ var level: int = 1:
 	set(level_in):
 		level = level_in
 		level_updated.emit(level)
-		
+
+
 # we start in odd mode, top row is full row and odd number rows as indented shorter
 var row_mode: RowMode = RowMode.ODD_R
 var y_offset: float = 0
@@ -45,7 +56,7 @@ func set_level_node(_level_node: Control) -> void:
 func next_level() -> void:
 	# make sure all bouncing balls are cleared, one will be start point, but
 	# in case of bugs, just make it clean
-	for ball in get_tree().get_nodes_in_group('bouncing_balls'):
+	for ball in get_tree().get_nodes_in_group(Groups.BLOCK):
 		ball.queue_free()
 	level += 1
 	init_level()
@@ -64,15 +75,40 @@ func start_level() -> void:
 func create_row(row: int) -> void:
 	var block_count = 8 if row % 2 == 0 else 7
 	for column in range(0,block_count):
-		var block:Block = BLOCK.instantiate()
+		var block:Block
+		if column == 3:
+			block = HAMMER_BLOCK.instantiate()
+		else:
+			block = BLOCK.instantiate()
 		level_node.add_child(block)
 		block.grid_position = Vector2i(column,row)
 		#block.scale = Vector2(SCALE,SCALE)
-		block.hits = randi_range(1,5)
+		if column != 3:
+			block.hits = randi_range(1,5)
 	
 
+# return all regular blocks that are nieghbours to the given grid location
+func get_neighbours( grid_position: Vector2i ) -> Array[Block]:
+	var offset_coords: Array[Vector2i]
+	
+	# iterate over all 6 possible nieghbours and use direction lookup table to
+	# compute actual co-ords of neighbour on that side of the hex
+	for neighbour in range(0,6):
+		var parity = grid_position.y & 1
+		var diff = ODDR_DIRECTION_DIFFERENCES[parity][neighbour]
+		offset_coords.append( Vector2i(grid_position.x + diff[0], grid_position.y + diff[1]) )
+
+	# now we know what co-ords are neighbours, iterate over blocks, build and return
+	# list of blocks at that location
+	var blocks: Array[Block]
+	for block in get_tree().get_nodes_in_group(Groups.BLOCK):
+		if offset_coords.has( block.grid_position ):
+			blocks.append(block)
+	return blocks
+	
+	
 func clear_bonus_tiles() -> void:
-	for block in get_tree().get_nodes_in_group('power_block'):
+	for block in get_tree().get_nodes_in_group(Groups.BONUS_BLOCK):
 		block.queue_free()
 	
 	
@@ -80,7 +116,7 @@ func clear_bonus_tiles() -> void:
 func move_down() -> void:
 	top_row -= 1 
 	y_offset += ROW_SPACING
-	for block in get_tree().get_nodes_in_group('block'):
+	for block in get_tree().get_nodes_in_group(Groups.BLOCK):
 		block.position.y += ROW_SPACING
 
 

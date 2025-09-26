@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3gl0aagqxsg8"]
+
+[ext_resource type="Script" uid="uid://c0wuyj4v7ofx7" path="res://entities/blocks/bonus_block.gd" id="1_ix4ya"]
+[ext_resource type="Texture2D" uid="uid://b1wct1pen0uul" path="res://assets/blocks/bonus-hex.png" id="2_hc7sm"]
+[ext_resource type="PackedScene" uid="uid://cerfhj1g5idly" path="res://entities/blocks/outline_sprite.tscn" id="3_s7kgy"]
+
+[node name="BonusBlock" type="Area2D" groups=["bonus_block"]]
+script = ExtResource("1_ix4ya")
+outline_color = null
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_hc7sm")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(42, 25, 0, 50, -43, 24, -43, -25, 0, -50, 42, -24)
+
+[node name="OutlineSprite" parent="." instance=ExtResource("3_s7kgy")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

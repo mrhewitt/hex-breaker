@@ -1,0 +1,97 @@
+[gd_scene load_steps=13 format=3 uid="uid://ddnv4ois0lm0s"]
+
+[ext_resource type="PackedScene" uid="uid://ddqy4gf7na4l2" path="res://entities/blocks/block.tscn" id="1_65uv8"]
+[ext_resource type="Script" uid="uid://cv7uan04v66km" path="res://entities/blocks/hammer_block.gd" id="2_lvnx7"]
+[ext_resource type="Shader" uid="uid://cynpqopwmf8qj" path="res://entities/blocks/hit_flash.gdshader" id="3_3yxuk"]
+[ext_resource type="Texture2D" uid="uid://cbqgt34wr2on3" path="res://assets/blocks/hammer-bonus-hex.png" id="3_c64a0"]
+[ext_resource type="Texture2D" uid="uid://cpr7y80pxkil6" path="res://assets/blocks/hammer-icon.png" id="3_mbm2d"]
+[ext_resource type="Texture2D" uid="uid://iupeedscjhgo" path="res://assets/blocks/hammer-particle.png" id="4_c64a0"]
+[ext_resource type="PackedScene" uid="uid://cerfhj1g5idly" path="res://entities/blocks/outline_sprite.tscn" id="5_c64a0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qdc04"]
+resource_local_to_scene = true
+shader = ExtResource("3_3yxuk")
+shader_parameter/flash_color = Color(1, 0.98950195, 0.984375, 1)
+shader_parameter/flash_value = 0.0
+
+[sub_resource type="Animation" id="Animation_yt4sm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HammerIconSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_aoboi"]
+resource_name = "swing"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HammerIconSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -1.4835298, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h353g"]
+_data = {
+&"RESET": SubResource("Animation_yt4sm"),
+&"swing": SubResource("Animation_aoboi")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c64a0"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+inherit_velocity_ratio = 0.13
+spread = 180.0
+initial_velocity_min = 28.849998
+initial_velocity_max = 129.81
+gravity = Vector3(0, 156, 0)
+scale_min = 0.0
+scale_max = 0.5
+color = Color(0.70007324, 0.88688755, 0.96875, 1)
+
+[node name="HammerBlock" groups=["bonus_block"] instance=ExtResource("1_65uv8")]
+script = ExtResource("2_lvnx7")
+damage_min = 1
+damage_max = 3
+
+[node name="Sprite2D" parent="." index="1"]
+material = SubResource("ShaderMaterial_qdc04")
+texture = ExtResource("3_c64a0")
+
+[node name="HammerIconSprite" type="Sprite2D" parent="." index="3"]
+texture = ExtResource("3_mbm2d")
+
+[node name="OutlineSprite" parent="." index="4" instance=ExtResource("5_c64a0")]
+
+[node name="HammerAnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+&"": SubResource("AnimationLibrary_h353g")
+}
+autoplay = "swing"
+
+[node name="HammerParticles2D" type="GPUParticles2D" parent="." index="6"]
+position = Vector2(16, 0)
+emitting = false
+amount = 16
+texture = ExtResource("4_c64a0")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_c64a0")
+
+[connection signal="animation_finished" from="HammerAnimationPlayer" to="." method="_on_hammer_animation_player_animation_finished"]
