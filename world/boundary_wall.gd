@@ -20,6 +20,9 @@ enum BoundarySide { TOP, BOTTOM, LEFT, RIGHT }
 ## which side of the screen this boundary wall attachs to
 @export var side: BoundarySide
 
+## color flash for wall when it gets hit
+@export var hit_color: Color
+
 @onready var color_rect: ColorRect = $ColorRect
 @onready var collision_shape_2d: CollisionShape2D = $WallBody/CollisionShape2D
 @onready var wall_body: WallBody = $WallBody
@@ -59,7 +62,7 @@ func set_contact_point(point_of_contact: Vector2) -> bool:
 			
 		tween_hit_color = create_tween()
 		tween_hit_color.tween_property(color_rect,"color",default_color,0.1)
-		color_rect.color = Color.CRIMSON
+		color_rect.color = hit_color
 		
 	if !has_restart_point:
 		has_restart_point = true

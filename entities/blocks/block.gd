@@ -22,6 +22,10 @@ class_name Block
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
+func _ready() -> void:
+	sprite_2d.frame = randi_range(0,sprite_2d.hframes)
+
+
 func take_hit( damage:int = 1 ) -> void:
 	hits -= damage
 	if hits <= 0:

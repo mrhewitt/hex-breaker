@@ -72,6 +72,7 @@ damage_max = 3
 [node name="Sprite2D" parent="." index="1"]
 material = SubResource("ShaderMaterial_qdc04")
 texture = ExtResource("3_c64a0")
+hframes = 1
 
 [node name="HammerIconSprite" type="Sprite2D" parent="." index="3"]
 texture = ExtResource("3_mbm2d")

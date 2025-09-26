@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://ddqy4gf7na4l2"]
 
-[ext_resource type="Texture2D" uid="uid://b5djbr066ef7b" path="res://assets/blocks/test-hex.png" id="1_0m2rm"]
 [ext_resource type="Script" uid="uid://csggjm4rmpn07" path="res://entities/blocks/block.gd" id="1_bknyb"]
 [ext_resource type="Shader" uid="uid://cynpqopwmf8qj" path="res://entities/blocks/hit_flash.gdshader" id="2_l6q0g"]
+[ext_resource type="Texture2D" uid="uid://d1y6ucalwi32d" path="res://assets/blocks/hex-blocks-sheet.png" id="3_l6q0g"]
 [ext_resource type="FontFile" uid="uid://djp7yayy6aac7" path="res://assets/font/Urban Shadow Sans Serif.otf" id="3_qq57b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pl2j7"]
@@ -34,6 +34,21 @@ scale_min = 0.0
 scale_max = 15.179999
 color = Color(0.70007324, 0.88688755, 0.96875, 1)
 
+[sub_resource type="Animation" id="Animation_pl2j7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_l6q0g"]
 resource_name = "hit_flash"
 length = 0.1
@@ -48,21 +63,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 1.0, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_pl2j7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8w6hu"]
@@ -80,7 +80,8 @@ polygon = PackedVector2Array(0, -50, 42, -24, 42, 26, 0, 50, -42, 24, -42, -25)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_pl2j7")
-texture = ExtResource("1_0m2rm")
+texture = ExtResource("3_l6q0g")
+hframes = 5
 
 [node name="HitCountLabel" type="Label" parent="."]
 unique_name_in_owner = true
