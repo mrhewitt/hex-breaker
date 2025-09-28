@@ -11,6 +11,7 @@ const BOUNCING_BALL = preload("res://entities/bouncing_ball.tscn")
 
 @onready var launch_line_2d: Line2D = $LaunchLine2D
 @onready var total_balls_label: Label = $TotalBallsLabel
+@onready var sprite_2d: Sprite2D = $Sprite2D
 
 var target_point: Vector2
 var preparing_to_fire: bool = false
@@ -22,6 +23,10 @@ var balls_left: int = 1:
 
 func _ready() -> void:
 	update_ball_counter()
+	
+	
+func get_ball_radius() -> float:
+	return sprite_2d.texture.get_width()/2 
 	
 	
 func update_ball_counter() -> void:		

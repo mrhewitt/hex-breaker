@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://36p4vqa1iaw6"]
+
+[ext_resource type="Texture2D" uid="uid://bigjpgu5xrtg1" path="res://assets/title-logo.png" id="1_bor1v"]
+[ext_resource type="PackedScene" uid="uid://b1b8up1icmvhq" path="res://ui/play_button_body.tscn" id="2_qer0c"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -199.0
+offset_top = 120.0
+offset_right = 199.0
+offset_bottom = 494.0
+grow_horizontal = 2
+texture = ExtResource("1_bor1v")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(361, 453, 434, 505, 537, 451, 723, 477, 719, 1267, 9, 1265, 12, 500, 185, 454, 267, 504, 474, 380, 182, 358, -38, 352, -50, 1342, 822, 1348, 848, 351, 545, 305)
+
+[node name="PlayButtonBody" parent="." instance=ExtResource("2_qer0c")]
+position = Vector2(289, 778)

@@ -88,6 +88,16 @@ func docked_with_base_ball() -> void:
 
 
 func drop_to_ground() -> void:
-	# turn off collisions with blocks so we can drop to base wall
-	set_collision_mask_value(2,false)
+	# mask only walls layer so we do not collide with anything else as we are
+	# essentially out of the game
+	#set_collision_mask_value(2,false)
+	set_collision_mask(4)
+	# find vall that is base wall, and determine which direction to move
+	var base_wall := BoundaryWall.get_base_wall()
+	match base_wall.side:
+		BoundaryWall.BoundarySide.LEFT: velocity = Vector2.LEFT
+		BoundaryWall.BoundarySide.RIGHT: velocity = Vector2.RIGHT
+		BoundaryWall.BoundarySide.TOP: velocity = Vector2.UP
+		BoundaryWall.BoundarySide.BOTTOM: velocity = Vector2.DOWN
+	velocity *= SPEED
 	

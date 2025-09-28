@@ -7,6 +7,12 @@ const BOUNCING_BALL = preload("res://entities/bouncing_ball.tscn")
 
 var preparing_to_fire: bool = false
 var level_running: bool = false
+@onready var bottom_wall: BoundaryWall = $BottomWall
+
+
+func _ready() -> void:
+	var center_x = get_viewport_rect().size.x/2
+	ball.global_position = Vector2(center_x,bottom_wall.global_position.y - ball.get_ball_radius() - 6)
 
 
 func _input(event: InputEvent) -> void:
@@ -53,7 +59,7 @@ func level_complete() -> void:
 
 func move_to_start_point( restart_point: Vector2 ) -> Tween:
 	var tween := create_tween()
-	tween.tween_property(ball, "global_position", restart_point, 0.5)
+	tween.tween_property(ball, "global_position", restart_point, 0.25)
 	return tween
 
 

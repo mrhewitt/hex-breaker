@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://damidc11hikm4"]
+[gd_scene load_steps=3 format=3 uid="uid://damidc11hikm4"]
 
 [ext_resource type="Script" uid="uid://bue1gxuj7l4n2" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="Texture2D" uid="uid://bigjpgu5xrtg1" path="res://assets/title-logo.png" id="2_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://b1b8up1icmvhq" path="res://play_button_body.tscn" id="3_lquwl"]
+[ext_resource type="PackedScene" uid="uid://c1h3cc75cwin8" path="res://world/world.tscn" id="4_1bvp3"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -11,34 +10,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_h2yge")
 
-[node name="TitleScreen" type="Control" parent="."]
+[node name="World" parent="." instance=ExtResource("4_1bvp3")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="TitleScreen"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -199.0
-offset_top = 120.0
-offset_right = 199.0
-offset_bottom = 494.0
-grow_horizontal = 2
-texture = ExtResource("2_1bvp3")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="TitleScreen"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TitleScreen/StaticBody2D"]
-polygon = PackedVector2Array(361, 453, 434, 505, 537, 451, 723, 477, 719, 1267, 9, 1265, 12, 500, 185, 454, 267, 504, 474, 380, 182, 358, -38, 352, -50, 1342, 822, 1348, 848, 351, 545, 305)
-
-[node name="PlayButtonBody" parent="TitleScreen" instance=ExtResource("3_lquwl")]
-position = Vector2(289, 778)
-
-[connection signal="play_pressed" from="TitleScreen/PlayButtonBody" to="." method="_on_play_button_body_play_pressed"]

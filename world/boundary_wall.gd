@@ -33,6 +33,14 @@ var restart_point: Vector2
 var has_restart_point: bool = false
 var restart_point_instance: RestartPoint = null
 
+# returns the wall isntance that is currently the base wall
+static func get_base_wall() -> BoundaryWall:
+	for wall in BlockSpawner.level_node.get_tree().get_nodes_in_group(Groups.WALL):
+		if wall.is_base_wall:
+			return wall
+	# no base wall but that means really a serious error, there is always one 
+	return null
+
 
 func _ready() -> void:
 	set_shape.call_deferred()

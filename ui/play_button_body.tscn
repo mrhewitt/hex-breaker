@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b1b8up1icmvhq"]
 
-[ext_resource type="Script" uid="uid://dtesoexkl0ph" path="res://play_button_body.gd" id="1_85xi2"]
+[ext_resource type="Script" uid="uid://dtesoexkl0ph" path="res://ui/play_button_body.gd" id="1_85xi2"]
 [ext_resource type="Texture2D" uid="uid://b3of8ir2kt51r" path="res://assets/play-button.png" id="1_wxmwh"]
 [ext_resource type="PackedScene" uid="uid://cwca3nqjljvq5" path="res://entities/ball_highlight.tscn" id="2_85xi2"]
 

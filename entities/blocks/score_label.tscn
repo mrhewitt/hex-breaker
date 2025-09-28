@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtvxp338ahkqn"]
+
+[ext_resource type="FontFile" uid="uid://djp7yayy6aac7" path="res://assets/font/Urban Shadow Sans Serif.otf" id="1_g077x"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6b031"]
+font = ExtResource("1_g077x")
+
+[node name="ScoreLabel" type="Label"]
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 13.0
+scale = Vector2(8, 8)
+pivot_offset = Vector2(20, 10)
+text = "10"
+label_settings = SubResource("LabelSettings_6b031")
+horizontal_alignment = 1
+vertical_alignment = 1

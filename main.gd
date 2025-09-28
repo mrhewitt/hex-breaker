@@ -1,6 +1,9 @@
 extends Control
 
+#@onready var title_screen: Control = $TitleScreen
+@onready var world: VBoxContainer = $World
 
 
 func _on_play_button_body_play_pressed() -> void:
-	pass # Replace with function body.
+	#title_screen.visible = false
+	world.visible = true

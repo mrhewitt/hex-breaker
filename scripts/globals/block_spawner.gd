@@ -7,6 +7,7 @@ const SCALE = 1
 const HEX_WIDTH = 100*SCALE
 const HEX_HEIGHT = 85*SCALE
 const HEX_RADIUS = 50
+const MAX_ROWS = 12
 
 const ODDR_DIRECTION_DIFFERENCES = [
    # even rows 
@@ -43,7 +44,7 @@ var level: int = 1:
 var row_mode: RowMode = RowMode.ODD_R
 var y_offset: float = 0
 var level_node: Control = null
-var top_row:int = 12
+var top_row:int = MAX_ROWS
 
 
 func set_level_node(_level_node: Control) -> void:
@@ -60,20 +61,20 @@ func next_level() -> void:
 		ball.queue_free()
 	level += 1
 	init_level()
-	
-	
+
+
 func init_level() -> void:
 	clear_bonus_tiles()
 	move_down()
-	create_row(top_row)
+	#create_row()
 
 
 func start_level() -> void:
 	level_started.emit()
 
 
-func create_row(row: int) -> void:
-	var block_count = 8 if row % 2 == 0 else 7
+func create_row() -> void:
+	var block_count = 8 if top_row % 2 == 0 else 7
 	for column in range(0,block_count):
 		var block:Block
 		if column == 3:
@@ -81,8 +82,14 @@ func create_row(row: int) -> void:
 		else:
 			block = BLOCK.instantiate()
 		level_node.add_child(block)
-		block.grid_position = Vector2i(column,row)
-		#block.scale = Vector2(SCALE,SCALE)
+		block.grid_position = Vector2i(column,top_row)
+		
+		# animate blocks appearance so it drops in from above
+		var target_y: float = block.position.y
+		block.position.y = -HEX_RADIUS
+		var move_tween = create_tween()
+		move_tween.tween_property(block, 'position:y', target_y, 0.3 + randf_range(0,0.6))
+
 		if column != 3:
 			block.hits = randi_range(1,5)
 	
@@ -109,16 +116,32 @@ func get_neighbours( grid_position: Vector2i ) -> Array[Block]:
 	
 func clear_bonus_tiles() -> void:
 	for block in get_tree().get_nodes_in_group(Groups.BONUS_BLOCK):
-		block.queue_free()
+		var move_tween = create_tween()
+		move_tween.tween_property(block, 'position:y', level_node.get_rect().size.y, 0.4 + randf_range(0.0,0.4))
+		move_tween.finished.connect(block.queue_free)
 	
 	
 # move all blocks down 
 func move_down() -> void:
-	top_row -= 1 
 	y_offset += ROW_SPACING
+	top_row -= 1 
+	
+	var move_tween: Tween = null
 	for block in get_tree().get_nodes_in_group(Groups.BLOCK):
-		block.position.y += ROW_SPACING
-
+		# animate blocks downward movement, add a slight delay so it looks like thay
+		# fall, use row index to determine delay (as blocks may not be in order in
+		move_tween = create_tween()
+		var start_delay: float = ((MAX_ROWS-block.grid_position.y) * 0.2) + (0.075 + (block.grid_position.x*0.025))
+		move_tween.tween_interval(start_delay)
+		move_tween.tween_property(block, 'position:y', block.position.y + ROW_SPACING, 0.075)
+	
+	# attach finsih event to final move tween to create new row once done animating
+	# existing rows down, if no existing rows, go direct to create new row
+	if move_tween:
+		move_tween.finished.connect(create_row)
+	else:
+		create_row()
+		
 
 func grid_to_pixel( grid_position: Vector2i ) -> Vector2:
 	var x:float = sqrt(3) * (grid_position.x + 0.5 * (grid_position.y&1))
