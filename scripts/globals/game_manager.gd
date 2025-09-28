@@ -1,14 +1,12 @@
 extends Node
 
-signal score_updated(score: int)
+signal score_updated(score_added:int, score: int)
 #signal top_player_updated(top_player: Dictionary)
 
 var score: int = 0:
 	set(score_in):
 		score = score_in
 		HighScoreManager.high_score = score
-		score_updated.emit(score)
-
 
 
 #var high_score_list: Array[Dictionary] = [{name="Bob",score=10223},{name="Adian1",score=3912},{name="Predator88518",score=324}]
@@ -31,3 +29,16 @@ func is_on_mobile() -> bool:
 func new_game() -> void:
 	score = 0
 	
+
+# set score and emit set event, just assigning value does NOT emit event
+# in propety setter as we dont know how many points were added, and we cannot
+# send event twice, so this method just sets score, and delta is 0, add_to_score
+# adds a delta to score and emits the new score with delta so we can do fx on it  
+func set_score( _score: int ) -> void:
+	score = _score
+	score_updated.emit(0,score)
+	
+	
+func add_to_score( points: int ) -> void:
+	score += points
+	score_updated.emit(points,score)

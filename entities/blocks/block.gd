@@ -34,7 +34,9 @@ func take_hit( damage:int = 1 ) -> void:
 		sprite_2d.visible = false
 		burst_particles_2d.emitting = true
 	else:
+		GameManager.add_to_score(10)
 		animation_player.play("hit_flash")
+		
 		
 # we show these particles when block is burst, so free when done
 func _on_burst_particles_2d_finished() -> void:

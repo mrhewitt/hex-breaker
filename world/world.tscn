@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1h3cc75cwin8"]
+[gd_scene load_steps=17 format=3 uid="uid://c1h3cc75cwin8"]
 
 [ext_resource type="FontFile" uid="uid://djp7yayy6aac7" path="res://assets/font/Urban Shadow Sans Serif.otf" id="1_mmdvd"]
 [ext_resource type="Script" uid="uid://dyc3yi87eg8v5" path="res://world/world.gd" id="1_tcf2h"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dv7kdcohculf0" path="res://assets/ui-button-paused-pressed.png" id="4_ai45w"]
 [ext_resource type="Texture2D" uid="uid://bwj40keyvw0lq" path="res://assets/ui-pause-button-hover.png" id="4_sc4t8"]
 [ext_resource type="Texture2D" uid="uid://d37yxvywbrden" path="res://assets/ui-drop-button.png" id="9_4papg"]
+[ext_resource type="PackedScene" uid="uid://c3snm6vd8tyum" path="res://ui/score_label.tscn" id="9_fyhu2"]
 
 [sub_resource type="Theme" id="Theme_sc4t8"]
 default_font = ExtResource("1_mmdvd")
@@ -17,11 +18,14 @@ default_font_size = 24
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sc4t8"]
 texture = ExtResource("3_fn3g3")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4papg"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mad0u"]
 texture = ExtResource("4_ai45w")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ai45w"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ocfjn"]
 texture = ExtResource("4_sc4t8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ov2xu"]
+texture = ExtResource("3_fn3g3")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fyhu2"]
 texture = ExtResource("9_4papg")
@@ -51,20 +55,26 @@ color = Color(0.14117648, 0.08235294, 0.15294118, 1)
 
 [node name="RoundLabel" type="Label" parent="HUDUpper"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 13
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_right = 11.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 48
+theme_override_colors/font_shadow_color = Color(0.20392157, 0.10980392, 0.15294118, 1)
+theme_override_colors/font_outline_color = Color(0.3764706, 0.17254902, 0.17254902, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 96
 text = "1"
 horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_trim_flags = 0
+justification_flags = 0
 
 [node name="PauseButton" type="Button" parent="HUDUpper"]
 custom_minimum_size = Vector2(96, 96)
@@ -78,8 +88,9 @@ offset_right = 96.0
 offset_bottom = 48.0
 grow_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_sc4t8")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_4papg")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ai45w")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_mad0u")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ocfjn")
+theme_override_styles/focus = SubResource("StyleBoxTexture_ov2xu")
 
 [node name="Level" type="Control" parent="."]
 custom_minimum_size = Vector2(0, 920)
@@ -150,19 +161,31 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.14117648, 0.08235294, 0.15294118, 1)
 
-[node name="DropButton" type="Button" parent="HUDLower"]
-custom_minimum_size = Vector2(128, 128)
+[node name="HBoxContainer" type="HBoxContainer" parent="HUDLower"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -4.0
-offset_top = 16.0
-offset_right = 4.0
-offset_bottom = 8.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 128.0
 grow_horizontal = 2
+
+[node name="ScoreLabel" parent="HUDLower/HBoxContainer" instance=ExtResource("9_fyhu2")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00000"
+highlight_color = Color(0.9098039, 0.75686276, 0.4392157, 1)
+bump_font_size = 110
+
+[node name="DropButton" type="Button" parent="HUDLower/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxTexture_fyhu2")
+
+[node name="Label2" type="Label" parent="HUDLower/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [connection signal="base_wall_selected" from="Level/TopWall" to="Level" method="_on_base_wall_selected"]
 [connection signal="timeout" from="Level/LaunchTimer" to="Level" method="_on_launch_timer_timeout"]
-[connection signal="pressed" from="HUDLower/DropButton" to="." method="_on_drop_button_pressed"]
+[connection signal="pressed" from="HUDLower/HBoxContainer/DropButton" to="." method="_on_drop_button_pressed"]

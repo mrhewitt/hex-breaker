@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3snm6vd8tyum"]
+
+[ext_resource type="Script" uid="uid://cwtipd7h3r16v" path="res://ui/score_label.gd" id="1_f4aq7"]
+
+[node name="ScoreLabel" type="Label"]
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 96
+text = "00010"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_f4aq7")
