@@ -1,11 +1,25 @@
 extends Node
 
+## fired when level counter is bumped up to indicate we moved to a new level
 signal level_updated(level)
 signal level_started
 
-const SCALE = 1
-const HEX_WIDTH = 100*SCALE
-const HEX_HEIGHT = 85*SCALE
+## emitted when all block animations are start of new level are done, and user
+## can now being to aim his next shot
+signal block_drop_complete
+
+
+# all levels up till this will allocate number of hits as
+# level number, greater will allocate level number of 2xlevel
+const MAX_LEVEL_LINEAR_HITS = 5
+
+# max number of blocks to put horicontally, odd rows will have 1 less
+# as the hexes slot into the spaces of blocks on even rows
+const MAX_BLOCKS_ACROSS = 8 
+
+#const SCALE = 1
+#const HEX_WIDTH = 100*SCALE
+#const HEX_HEIGHT = 85*SCALE
 const HEX_RADIUS = 50
 const MAX_ROWS = 12
 
@@ -74,25 +88,39 @@ func start_level() -> void:
 
 
 func create_row() -> void:
-	var block_count = 8 if top_row % 2 == 0 else 7
-	for column in range(0,block_count):
-		var block:Block
-		if column == 3:
-			block = HAMMER_BLOCK.instantiate()
-		else:
-			block = BLOCK.instantiate()
+	# create an array of open row indexes, each time one is places we take it out
+	# that way we never have issue having to loop picking random numbers if a slot is full 
+	var total_block_count = MAX_BLOCKS_ACROSS if top_row % 2 == 0 else MAX_BLOCKS_ACROSS - 1
+	var available_slots: Array
+	for i in range(0,total_block_count):
+		available_slots.append(i)
+
+	# work out maximum blocks, if low level then its just one, otherwise
+	# it is netweem 1-3
+	var block_count = 1 if level < MAX_LEVEL_LINEAR_HITS else randi_range(1,3)
+	var move_tween: Tween = create_tween().parallel()
+	move_tween.finished.connect( block_drop_complete.emit )
+	for i in range(0, block_count):
+		var column = available_slots.pick_random()
+		available_slots.erase(column)
+		
+		var block := BLOCK.instantiate()
 		level_node.add_child(block)
 		block.grid_position = Vector2i(column,top_row)
+		block.hits = get_hits_to_allocate()
 		
 		# animate blocks appearance so it drops in from above
 		var target_y: float = block.position.y
 		block.position.y = -HEX_RADIUS
-		var move_tween = create_tween()
 		move_tween.tween_property(block, 'position:y', target_y, 0.3 + randf_range(0,0.6))
 
-		if column != 3:
-			block.hits = randi_range(1,5)
-	
+
+func get_hits_to_allocate() -> int:
+	if level <= MAX_LEVEL_LINEAR_HITS:
+		return level
+	else:
+		return [level,level*2].pick_random()
+
 
 # return all regular blocks that are nieghbours to the given grid location
 func get_neighbours( grid_position: Vector2i ) -> Array[Block]:

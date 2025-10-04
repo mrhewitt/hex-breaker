@@ -187,5 +187,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [connection signal="base_wall_selected" from="Level/TopWall" to="Level" method="_on_base_wall_selected"]
+[connection signal="base_wall_selected" from="Level/LeftWall" to="Level" method="_on_base_wall_selected"]
+[connection signal="base_wall_selected" from="Level/RightWall" to="Level" method="_on_base_wall_selected"]
+[connection signal="base_wall_selected" from="Level/BottomWall" to="Level" method="_on_base_wall_selected"]
 [connection signal="timeout" from="Level/LaunchTimer" to="Level" method="_on_launch_timer_timeout"]
 [connection signal="pressed" from="HUDLower/HBoxContainer/DropButton" to="." method="_on_drop_button_pressed"]

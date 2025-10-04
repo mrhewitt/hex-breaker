@@ -42,10 +42,23 @@ static func get_base_wall() -> BoundaryWall:
 	return null
 
 
+# find all walls that are NOT acting as a boundary wall
+static func get_non_base_walls() -> Array[BoundaryWall]:
+	var walls: Array[BoundaryWall]
+	for wall in BlockSpawner.level_node.get_tree().get_nodes_in_group(Groups.WALL):
+		if !wall.is_base_wall:
+			walls.append(wall)
+	return walls
+
+
+static func clear_all_start_points() -> void:
+	for wall in BlockSpawner.level_node.get_tree().get_nodes_in_group(Groups.WALL):
+		wall.clear_start_point()
+	
+
 func _ready() -> void:
 	set_shape.call_deferred()
 	BlockSpawner.level_updated.connect(_on_new_level)
-	BlockSpawner.level_started.connect(_on_level_started)
 
 
 func set_shape() -> void:
@@ -97,16 +110,14 @@ func hide_restart_point() -> void:
 # when new level is set, show spawn points so user can select the,
 func _on_new_level(_level:int) -> void:
 	show_restart_point()
-	
-	
-# user launched balls to start playing the round
-func _on_level_started() -> void:
-	clear_start_point()
-	
-	
+
 
 # handle event when user taps on restart point linked to this wall
 # wall becomes new base and we signal parent to move ball onto this spot
 func _on_select_restart_point() -> void:
-	base_wall_selected.emit(self)
+	# turn current base wall into normal wall
+	get_base_wall().is_base_wall = false
+	# make this wall base wall
 	is_base_wall = true
+	# let everyone know about the change
+	base_wall_selected.emit(self)
