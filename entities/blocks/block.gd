@@ -28,13 +28,13 @@ func _ready() -> void:
 
 func take_hit( damage:int = 1 ) -> void:
 	hits -= damage
+	GameManager.add_to_score(10)
 	if hits <= 0:
 		# dead, hide physical body and show explosion particles
 		collision_polygon_2d.disabled = true
 		sprite_2d.visible = false
 		burst_particles_2d.emitting = true
 	else:
-		GameManager.add_to_score(10)
 		animation_player.play("hit_flash")
 
 

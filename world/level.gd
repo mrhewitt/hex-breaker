@@ -88,7 +88,7 @@ func _on_ready_to_aim() -> void:
 func _on_base_wall_selected(base_wall: BoundaryWall) -> void:
 	move_to_start_point(base_wall.restart_point)
 	# hide aiming line so we can start from new point
-	targeting_state == BallAimState.WAITING
+	targeting_state = BallAimState.WAITING
 	ball.launch_line_2d.visible = false
 	
 	

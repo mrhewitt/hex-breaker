@@ -13,8 +13,12 @@ enum BoundarySide { TOP, BOTTOM, LEFT, RIGHT }
 	set(base_wall):
 		is_base_wall = base_wall
 		if base_wall:
+			if color_rect:
+				color_rect.color = base_wall_color 
 			hide_restart_point()
 		else:
+			if color_rect:
+				color_rect.color = default_color
 			show_restart_point()
 
 ## which side of the screen this boundary wall attachs to
@@ -22,6 +26,9 @@ enum BoundarySide { TOP, BOTTOM, LEFT, RIGHT }
 
 ## color flash for wall when it gets hit
 @export var hit_color: Color
+
+## color of the base wall
+@export var base_wall_color: Color
 
 @onready var color_rect: ColorRect = $ColorRect
 @onready var collision_shape_2d: CollisionShape2D = $WallBody/CollisionShape2D
@@ -59,6 +66,7 @@ static func clear_all_start_points() -> void:
 func _ready() -> void:
 	set_shape.call_deferred()
 	BlockSpawner.level_updated.connect(_on_new_level)
+	color_rect.color = base_wall_color if is_base_wall else default_color
 
 
 func set_shape() -> void:
@@ -82,7 +90,7 @@ func set_contact_point(point_of_contact: Vector2) -> bool:
 			tween_hit_color.kill()
 			
 		tween_hit_color = create_tween()
-		tween_hit_color.tween_property(color_rect,"color",default_color,0.1)
+		tween_hit_color.tween_property(color_rect,"color",base_wall_color if is_base_wall else default_color,0.1)
 		color_rect.color = hit_color
 		
 	if !has_restart_point:

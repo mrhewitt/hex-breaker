@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c1h3cc75cwin8"]
+[gd_scene load_steps=22 format=3 uid="uid://c1h3cc75cwin8"]
 
 [ext_resource type="FontFile" uid="uid://djp7yayy6aac7" path="res://assets/font/Urban Shadow Sans Serif.otf" id="1_mmdvd"]
 [ext_resource type="Script" uid="uid://dyc3yi87eg8v5" path="res://world/world.gd" id="1_tcf2h"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bwj40keyvw0lq" path="res://assets/ui-pause-button-hover.png" id="4_sc4t8"]
 [ext_resource type="Texture2D" uid="uid://d37yxvywbrden" path="res://assets/ui-drop-button.png" id="9_4papg"]
 [ext_resource type="PackedScene" uid="uid://c3snm6vd8tyum" path="res://ui/score_label.tscn" id="9_fyhu2"]
+[ext_resource type="Texture2D" uid="uid://suah6tnbji31" path="res://assets/ui-drop-button-hover.png" id="11_ov2xu"]
+[ext_resource type="Texture2D" uid="uid://cgg3ymr331wpc" path="res://assets/ui-drop-button-disabled.png" id="12_mad0u"]
 
 [sub_resource type="Theme" id="Theme_sc4t8"]
 default_font = ExtResource("1_mmdvd")
@@ -29,6 +31,15 @@ texture = ExtResource("3_fn3g3")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fyhu2"]
 texture = ExtResource("9_4papg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dqqhb"]
+texture = ExtResource("11_ov2xu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h8lre"]
+texture = ExtResource("12_mad0u")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b2suy"]
+texture = ExtResource("11_ov2xu")
 
 [node name="World" type="VBoxContainer"]
 anchors_preset = 15
@@ -176,11 +187,16 @@ highlight_color = Color(0.9098039, 0.75686276, 0.4392157, 1)
 bump_font_size = 110
 
 [node name="DropButton" type="Button" parent="HUDLower/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxTexture_fyhu2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_dqqhb")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_h8lre")
+theme_override_styles/focus = SubResource("StyleBoxTexture_b2suy")
+disabled = true
 
 [node name="Label2" type="Label" parent="HUDLower/HBoxContainer"]
 layout_mode = 2

@@ -16,6 +16,7 @@ offset_bottom = 10.0
 mouse_filter = 1
 script = ExtResource("1_ccu8h")
 hit_color = Color(0.64705884, 0.1882353, 0.1882353, 1)
+base_wall_color = Color(0.34117648, 0.44705883, 0.46666667, 1)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(10, 10)

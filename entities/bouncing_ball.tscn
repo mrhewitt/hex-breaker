@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://babakghj6swox" path="res://assets/ball.png" id="2_qid0c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lc4u2"]
-radius = 8.0
+radius = 12.0
 
 [node name="BoucingBall" type="CharacterBody2D" groups=["bouncing_balls"]]
 scale = Vector2(1.5, 1.5)

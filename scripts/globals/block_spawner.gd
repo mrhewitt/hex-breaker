@@ -8,6 +8,8 @@ signal level_started
 ## can now being to aim his next shot
 signal block_drop_complete
 
+## emitted when blocks reach bottom and gaem is over
+signal block_rows_full
 
 # all levels up till this will allocate number of hits as
 # level number, greater will allocate level number of 2xlevel
@@ -155,28 +157,35 @@ func move_down() -> void:
 	top_row -= 1 
 	
 	var move_tween: Tween = null
+	var start_delay: float = 0.0
 	for block in get_tree().get_nodes_in_group(Groups.BLOCK):
 		# animate blocks downward movement, add a slight delay so it looks like thay
 		# fall, use row index to determine delay (as blocks may not be in order in
 		move_tween = create_tween()
-		var start_delay: float = ((MAX_ROWS-block.grid_position.y) * 0.2) + (0.075 + (block.grid_position.x*0.025))
+		#var start_delay: float = ((MAX_ROWS-block.grid_position.y) * 0.2) + (0.075 + (block.grid_position.x*0.025))
 		move_tween.tween_interval(start_delay)
+		start_delay += 0.075
 		move_tween.tween_property(block, 'position:y', block.position.y + ROW_SPACING, 0.075)
 	
 	# attach finsih event to final move tween to create new row once done animating
 	# existing rows down, if no existing rows, go direct to create new row
 	if move_tween:
-		move_tween.finished.connect(create_row)
+		# if blocks have reached bottom signal game over instead of adding row to play
+		if top_row == 0:
+			move_tween.finished.connect( block_rows_full.emit )
+		else:
+			move_tween.finished.connect(create_row)
 	else:
 		create_row()
-		
+
 
 func grid_to_pixel( grid_position: Vector2i ) -> Vector2:
+	#grid_position.y = MAX_ROWS
 	var x:float = sqrt(3) * (grid_position.x + 0.5 * (grid_position.y&1))
 	var y:float =  3./2 * grid_position.y
 	# scale cartesian coordinates
 	x = x * HEX_RADIUS + 58 
-	y = y * HEX_RADIUS + y_offset
+	y = ROW_SPACING*2 #y * HEX_RADIUS + y_offset
 	return Vector2(x, y)
 	
 

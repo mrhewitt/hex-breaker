@@ -26,7 +26,7 @@ func _ready() -> void:
 	
 	
 func get_ball_radius() -> float:
-	return sprite_2d.texture.get_width()/2 
+	return sprite_2d.texture.get_width()/2.0 
 	
 	
 func update_ball_counter() -> void:		
@@ -34,6 +34,7 @@ func update_ball_counter() -> void:
 		if balls_left <= 0:
 			total_balls_label.text = ''
 		else:
+			modulate.a = 1
 			total_balls_label.text = 'x' + str(balls_left)
 		
 
@@ -45,6 +46,7 @@ func show_launch_line_to( point: Vector2 ) -> void:
 
 
 func launch_ball() -> BouncingBall:
+	modulate.a = 0.25
 	var ball:BouncingBall = BOUNCING_BALL.instantiate()
 	ball.global_position = global_position
 	ball.velocity = Vector2( target_point - global_position ).normalized() * ball.SPEED
