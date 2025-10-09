@@ -19,7 +19,7 @@ var start_drag_position: Vector2
 
 func _ready() -> void:
 	var center_x = get_viewport_rect().size.x/2
-	ball.global_position = Vector2(center_x,bottom_wall.global_position.y - ball.get_ball_radius() - 6)
+	ball.global_position = Vector2(center_x,bottom_wall.global_position.y - ball.get_ball_radius() )
 	BlockSpawner.block_drop_complete.connect( _on_ready_to_aim )
 	
 
@@ -71,9 +71,14 @@ func level_complete() -> void:
 #			break
 	await move_to_start_point( BoundaryWall.get_base_wall().restart_point ).finished	
 	# update UI to be ready for user to start new round
-	ball.ball_count += 1
+	ball.ball_count += 1 + GameManager.extra_balls
+	GameManager.extra_balls = 0
 	BlockSpawner.next_level()
 
+
+func game_over() -> void:
+	pass
+	
 
 func move_to_start_point( restart_point: Vector2 ) -> Tween:
 	var tween := create_tween()
@@ -90,5 +95,3 @@ func _on_base_wall_selected(base_wall: BoundaryWall) -> void:
 	# hide aiming line so we can start from new point
 	targeting_state = BallAimState.WAITING
 	ball.launch_line_2d.visible = false
-	
-	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c1h3cc75cwin8"]
+[gd_scene load_steps=23 format=3 uid="uid://c1h3cc75cwin8"]
 
 [ext_resource type="FontFile" uid="uid://djp7yayy6aac7" path="res://assets/font/Urban Shadow Sans Serif.otf" id="1_mmdvd"]
 [ext_resource type="Script" uid="uid://dyc3yi87eg8v5" path="res://world/world.gd" id="1_tcf2h"]
@@ -30,6 +30,9 @@ texture = ExtResource("4_sc4t8")
 texture = ExtResource("3_fn3g3")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fyhu2"]
+texture = ExtResource("9_4papg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ysn08"]
 texture = ExtResource("9_4papg")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dqqhb"]
@@ -193,6 +196,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxTexture_fyhu2")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ysn08")
 theme_override_styles/hover = SubResource("StyleBoxTexture_dqqhb")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_h8lre")
 theme_override_styles/focus = SubResource("StyleBoxTexture_b2suy")

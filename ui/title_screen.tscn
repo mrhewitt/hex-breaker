@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://36p4vqa1iaw6"]
+[gd_scene load_steps=4 format=3 uid="uid://36p4vqa1iaw6"]
 
 [ext_resource type="Texture2D" uid="uid://bigjpgu5xrtg1" path="res://assets/title-logo.png" id="1_bor1v"]
+[ext_resource type="Script" uid="uid://ntjeyfeh0csi" path="res://ui/title_screen.gd" id="1_qer0c"]
 [ext_resource type="PackedScene" uid="uid://b1b8up1icmvhq" path="res://ui/play_button_body.tscn" id="2_qer0c"]
 
 [node name="TitleScreen" type="Control"]
@@ -11,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+script = ExtResource("1_qer0c")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -31,3 +33,5 @@ polygon = PackedVector2Array(361, 453, 434, 505, 537, 451, 723, 477, 719, 1267, 
 
 [node name="PlayButtonBody" parent="." instance=ExtResource("2_qer0c")]
 position = Vector2(289, 778)
+
+[connection signal="play_pressed" from="PlayButtonBody" to="." method="_on_play_button_body_play_pressed"]

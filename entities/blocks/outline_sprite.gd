@@ -7,6 +7,7 @@ var outline_tween: Tween = null
 
 func show_outline() -> void:
 	self_modulate = outline_color
+	visible = true
 	
 	# if tween is already playing when we are hit, stop it and reset outline
 	# color so we can show a full new hit

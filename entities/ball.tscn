@@ -6,9 +6,10 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_rkec2"]
 font = ExtResource("3_2mxk7")
+font_size = 24
 
 [node name="Ball" type="Node2D"]
-scale = Vector2(1.5, 1.5)
+z_index = 100
 script = ExtResource("1_lc4u2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -21,10 +22,10 @@ width = 2.0
 default_color = Color(0.973535, 0.9735351, 0.973535, 1)
 
 [node name="TotalBallsLabel" type="Label" parent="."]
-offset_left = -20.0
-offset_top = -31.333334
-offset_right = 20.0
-offset_bottom = -8.333334
+offset_left = -21.0
+offset_top = -45.0
+offset_right = 19.0
+offset_bottom = -21.0
 text = "x12"
 label_settings = SubResource("LabelSettings_rkec2")
 horizontal_alignment = 1

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://damidc11hikm4"]
 
 [ext_resource type="Script" uid="uid://bue1gxuj7l4n2" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="PackedScene" uid="uid://c1h3cc75cwin8" path="res://world/world.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://36p4vqa1iaw6" path="res://ui/title_screen.tscn" id="2_h2yge"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -13,5 +13,9 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_h2yge")
 
-[node name="World" parent="." instance=ExtResource("4_1bvp3")]
+[node name="TitleScreen" parent="." instance=ExtResource("2_h2yge")]
 layout_mode = 1
+
+[connection signal="play_started" from="TitleScreen/PlayButtonBody" to="." method="_on_play_button_body_play_started"]
+
+[editable path="TitleScreen"]

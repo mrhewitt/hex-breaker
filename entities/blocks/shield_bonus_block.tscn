@@ -47,8 +47,11 @@ _data = {
 script = ExtResource("2_wakhi")
 icon_highlight_color = Color(0.93621826, 1, 0.18359375, 1)
 
+[node name="Sprite2D" parent="." index="0"]
+texture = null
+
 [node name="IconSprite" type="Sprite2D" parent="." index="2"]
-modulate = Color(0.98622835, 1, 0.8237229, 1)
+modulate = Color(0.95855755, 1, 0.46953666, 1)
 texture = ExtResource("3_w33xr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]

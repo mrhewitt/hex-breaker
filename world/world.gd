@@ -7,9 +7,13 @@ extends VBoxContainer
 
 
 func _ready() -> void:
+	pass
+	
+	
+func start_new_game() -> void:
 	BlockSpawner.level_updated.connect(_on_level_updated)
 	BlockSpawner.level_started.connect(_on_level_started)
-	BlockSpawner.block_rows_full.connect(_on_game_over)
+	BlockSpawner.blocks_reached_bottom.connect(_on_game_over)
 	BlockSpawner.set_level_node(level)
 	BlockSpawner.init_level()
 
@@ -20,13 +24,14 @@ func _on_level_updated(_level: int) -> void:
 	
 
 func _on_drop_button_pressed() -> void:
+	drop_button.disabled = true
 	for ball in get_tree().get_nodes_in_group('bouncing_balls'):
 		ball.drop_to_ground()
 		
 		
 func _on_level_started() -> void:
 	drop_button.disabled = false
-	
-		
+
+
 func _on_game_over() -> void:
-	pass
+	level.process_mode = Node.PROCESS_MODE_DISABLED

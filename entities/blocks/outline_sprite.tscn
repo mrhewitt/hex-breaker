@@ -7,3 +7,4 @@
 visible = false
 texture = ExtResource("1_g7qgn")
 script = ExtResource("2_f0ars")
+outline_color = Color(0.6431373, 0.8666667, 0.85882354, 1)

@@ -15,5 +15,6 @@ func _ready() -> void:
 	
 # every ball that makes contact gets a shield to allow one extra bounce off base wall
 # remains on screen until level end, balls can power up multiple times
-func block_hit(body: BouncingBall) -> void:
+func block_hit(body: BouncingBall) -> bool:
 	body.has_bounce_shield = true
+	return true

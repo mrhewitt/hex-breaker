@@ -1,5 +1,9 @@
 extends Area2D
 class_name BonusBlock
+			
+@export var grid_position: Vector2i:
+	set(pos):
+		position = BlockSpawner.grid_to_pixel(pos)
 
 @onready var outline_sprite: Sprite2D = $OutlineSprite
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -9,8 +13,9 @@ var hit_list:Array = []
  
 
 # called when a ball hits bonus block, override and do custom processing here
-func block_hit(_body: BouncingBall) -> void:
-	pass
+# return true if hit outline must be shown, false otherwise
+func block_hit(_body: BouncingBall) -> bool:
+	return true
 
 
 func clear_effects() -> void:
@@ -26,7 +31,7 @@ func hide_block() -> void:
 
 
 func disable_collisions() -> void:
-	collision_polygon_2d.disabled = true
+	collision_polygon_2d.set_deferred('disabled', true)
 	
 
 func _on_body_entered(body: Node2D) -> void:
@@ -36,8 +41,9 @@ func _on_body_entered(body: Node2D) -> void:
 		# do not want to multiply reward or ui effects
 		if !hit_list.has(body): 
 			hit_list.append(body)
-			show_hit()
-			block_hit(body)
+			if block_hit(body):
+				show_hit()
+			
 
 
 func _on_body_exited(body: Node2D) -> void:

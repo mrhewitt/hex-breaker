@@ -6,7 +6,6 @@
 
 [node name="BonusBlock" type="Area2D" groups=["bonus_block"]]
 script = ExtResource("1_ix4ya")
-outline_color = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_hc7sm")

@@ -34,7 +34,7 @@ func _draw() -> void:
 		thickness,				
 		true
 	)
-	
+
 	
 func reset_state(_loop: int) -> void:
 	_radius = min_radius

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Hex Breaker"
-run/main_scene="uid://c1h3cc75cwin8"
+run/main_scene="uid://damidc11hikm4"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 

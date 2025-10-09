@@ -9,6 +9,9 @@
 [node name="BallBonusBlock" instance=ExtResource("1_1af7m")]
 script = ExtResource("2_hwwae")
 
+[node name="Sprite2D" parent="." index="0"]
+texture = null
+
 [node name="BallSprite" type="Sprite2D" parent="." index="2"]
 texture = ExtResource("2_77f7k")
 
@@ -16,8 +19,9 @@ texture = ExtResource("2_77f7k")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." index="5"]
 emitting = false
-amount = 64
+amount = 16
 texture = ExtResource("2_77f7k")
+lifetime = 2.0
 one_shot = true
 explosiveness = 1.0
 randomness = 0.07

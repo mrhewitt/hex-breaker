@@ -8,6 +8,8 @@ var score: int = 0:
 		score = score_in
 		HighScoreManager.high_score = score
 
+# number of extra balls to add to total ball count at start of next round
+var extra_balls: int = 0
 
 #var high_score_list: Array[Dictionary] = [{name="Bob",score=10223},{name="Adian1",score=3912},{name="Predator88518",score=324}]
 

@@ -1,18 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://2r1p6a4olwbg"]
+[gd_scene load_steps=5 format=3 uid="uid://2r1p6a4olwbg"]
 
 [ext_resource type="Script" uid="uid://e2y85c0juhxl" path="res://entities/bouncing_ball.gd" id="1_b5n3d"]
 [ext_resource type="Texture2D" uid="uid://babakghj6swox" path="res://assets/ball.png" id="2_qid0c"]
+[ext_resource type="PackedScene" uid="uid://cwca3nqjljvq5" path="res://entities/ball_highlight.tscn" id="3_qid0c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lc4u2"]
 radius = 12.0
 
 [node name="BoucingBall" type="CharacterBody2D" groups=["bouncing_balls"]]
-scale = Vector2(1.5, 1.5)
 collision_mask = 6
 script = ExtResource("1_b5n3d")
+shield_color = Color(0.9098039, 0.75686276, 0.4392157, 1)
+is_mini_ball = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_qid0c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_lc4u2")
+
+[node name="BallHighlight" parent="." instance=ExtResource("3_qid0c")]
+visible = false
+min_radius = 12.0
+max_radius = 18.0
+duration = 1.0
+color = Color(0.9098039, 0.75686276, 0.4392157, 1)
+thickness = 4.0

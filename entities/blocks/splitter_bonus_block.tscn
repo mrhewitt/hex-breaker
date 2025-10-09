@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnq3vgsdhu7ls"]
+[gd_scene load_steps=4 format=3 uid="uid://cnq3vgsdhu7ls"]
 
 [ext_resource type="PackedScene" uid="uid://c3gl0aagqxsg8" path="res://entities/blocks/bonus_block.tscn" id="1_phamw"]
 [ext_resource type="Script" uid="uid://cyj3pdlr0t8n0" path="res://entities/blocks/splitter_bonus_block.gd" id="2_ecy64"]
+[ext_resource type="Texture2D" uid="uid://bt4c60jmo74tv" path="res://assets/blocks/icon-splitter.png" id="3_s64k0"]
 
 [node name="SplitterBonusBlock" instance=ExtResource("1_phamw")]
 script = ExtResource("2_ecy64")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = null
+
+[node name="IconSprite" type="Sprite2D" parent="." index="3"]
+texture = ExtResource("3_s64k0")
