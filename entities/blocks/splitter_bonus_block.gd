@@ -24,6 +24,8 @@ func new_ball( body: BouncingBall, direction_offset: float ) -> void:
 	var ball: BouncingBall = BOUNCING_BALL.instantiate()
 	ball.is_mini_ball = true
 	ball.position = body.position
+	for connection in body.all_balls_docked.get_connections():
+		ball.all_balls_docked.connect( connection.callable )
 	var direction: float = body.velocity.normalized().angle() + direction_offset
 	ball.velocity = Vector2.from_angle(direction) * ball.SPEED
-	get_parent().add_child(ball)
+	get_parent().add_child.call_deferred(ball)

@@ -44,7 +44,7 @@ var high_score: int = 0:
 		# ensure we only update high score it better, we do it here to prevent external
 		# sources needing to always do this check, but we have a special case for 0
 		# so that we can reset the high score to empty
-		if high_score_in == 0 or high_score_in > high_score:
+		if high_score_in > high_score:
 			high_score = high_score_in
 			high_score_updated.emit(high_score)
 		

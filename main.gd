@@ -16,12 +16,16 @@ func show_title_screen() -> void:
 	
 func _on_play_button_body_play_started() -> void:
 	title_screen.visible = false
+	start_game()
 	
+	
+func start_game() -> void:
 	# create world scene dynamically, for some reason if it is added
 	# manually to main scene tree the top and bottom boundary walls do not
 	# size their collision shapes correctly 
 	var world := WORLD.instantiate()
 	world.title_screen.connect(show_title_screen)
+	world.restart_game.connect(start_game)
 	add_child(world)
 	world.visible = true
 	world.modulate.a = 0

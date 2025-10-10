@@ -34,7 +34,7 @@ func _input(event: InputEvent) -> void:
 				# back to waiting state, otherwise release the ball if aiming 
 				if targeting_state == BallAimState.PREPARING_TO_AIM:
 					targeting_state = BallAimState.WAITING
-				else:
+				elif targeting_state == BallAimState.AIMING:
 					release_launch()
 		elif event is InputEventMouseMotion:
 			if targeting_state == BallAimState.PREPARING_TO_AIM:

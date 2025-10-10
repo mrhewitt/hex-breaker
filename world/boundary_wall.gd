@@ -102,7 +102,7 @@ func set_contact_point(point_of_contact: Vector2) -> bool:
 		
 		
 func show_restart_point() -> void:
-	if !is_base_wall and has_restart_point:
+	if !is_base_wall and has_restart_point and restart_point_instance == null:
 		restart_point_instance = RESTART_POINT.instantiate()
 		add_child(restart_point_instance)
 		restart_point_instance.global_position = restart_point

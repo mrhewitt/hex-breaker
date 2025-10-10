@@ -56,11 +56,13 @@ enum RowMode {ODD_R, EVEN_R}
 var level: int = 1:
 	set(level_in):
 		level = level_in
+		best_level = max(level_in,best_level)
 		level_updated.emit(level)
 
+var best_level: int = 1
 
 # we start in odd mode, top row is full row and odd number rows as indented shorter
-var row_mode: RowMode = RowMode.ODD_R
+#var row_mode: RowMode = RowMode.ODD_R
 #var y_offset: float = 0
 var level_node: Control = null
 var top_row:int = 0
@@ -69,7 +71,6 @@ var death_y: float = 0
 
 func set_level_node(_level_node: Control) -> void:
 	level_node = _level_node 
-	#y_offset = -level_node.size.y + ROW_SPACING*3
 	death_y = level_node.size.y - ROW_SPACING
 	
 # called whne round is over, removes bonus tiles, bumps level down one row
@@ -115,8 +116,8 @@ func create_row() -> void:
 		add_block(block, column, move_tween)
 		block.hits = get_hits_to_allocate()
 	
-	# add bonus blocks, 
-	if true:
+	# add bonus blocks, about 30% chance of bonus drop
+	if randf_range(0,100) < 33:
 		var block = BONUS_BLOCKS.pick_random().instantiate()
 		add_block(block, available_slots.pick_random(), move_tween)
 		
@@ -128,7 +129,7 @@ func add_block( block: Node2D, column: int, move_tween: Tween ) -> void:
 	# animate blocks appearance so it drops in from above
 	var target_y: float = block.position.y
 	block.position.y = -HEX_RADIUS
-	move_tween.tween_property(block, 'position:y', target_y, randf_range(0.05,0.25))
+	move_tween.tween_property(block, 'position:y', target_y, randf_range(0.025,0.075))
 
 
 func get_hits_to_allocate() -> int:
@@ -166,7 +167,7 @@ func clear_bonus_tiles() -> void:
 				SfxPlayer.play(SfxPlayer.BONUS_LEAVE)
 				sound_played = true
 			var move_tween = create_tween()
-			move_tween.tween_property(block, 'position:y', level_node.get_rect().size.y, 0.4 + randf_range(0.0,0.4))
+			move_tween.tween_property(block, 'position:y', level_node.get_rect().size.y, 0.2 + randf_range(0.0,0.4))
 			move_tween.finished.connect(block.queue_free)
 	
 	
@@ -186,8 +187,8 @@ func move_down() -> void:
 		#	move_tween = create_tween()
 			#var start_delay: float = ((MAX_ROWS-block.grid_position.y) * 0.2) + (0.075 + (block.grid_position.x*0.025))
 		#	move_tween.tween_interval(start_delay)
-			start_delay += 0.05
-			move_tween.tween_property(block, 'position:y', block.position.y + ROW_SPACING, 0.05).set_delay(start_delay)
+			start_delay += 0.01
+			move_tween.tween_property(block, 'position:y', block.position.y + ROW_SPACING, 0.01).set_delay(start_delay)
 	
 	# attach finsih event to final move tween to create new row once done animating
 	# existing rows down, if no existing rows, go direct to create new row

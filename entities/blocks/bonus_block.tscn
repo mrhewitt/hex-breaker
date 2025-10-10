@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c8rkujitlkfa7" path="res://entities/blocks/bonus_sound.tscn" id="4_hspl0"]
 
 [node name="BonusBlock" type="Area2D" groups=["bonus_block"]]
+collision_layer = 8
 script = ExtResource("1_ix4ya")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

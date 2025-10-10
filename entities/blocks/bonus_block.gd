@@ -38,7 +38,7 @@ func disable_collisions() -> void:
 	
 	
 func can_take_hit(body: Node2D) -> bool:
-	return body is BouncingBall
+	return body is BouncingBall and !body.is_falling
 
 
 func _on_body_entered(body: Node2D) -> void:

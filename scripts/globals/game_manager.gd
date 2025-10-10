@@ -30,6 +30,7 @@ func is_on_mobile() -> bool:
 
 func new_game() -> void:
 	score = 0
+	BlockSpawner.level = 1
 	
 
 # set score and emit set event, just assigning value does NOT emit event

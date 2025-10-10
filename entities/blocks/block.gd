@@ -23,20 +23,21 @@ class_name Block
 
 
 func _ready() -> void:
-	sprite_2d.frame = randi_range(0,sprite_2d.hframes)
+	sprite_2d.frame = randi_range(0,sprite_2d.hframes-1)
 
 
 func take_hit( damage:int = 1 ) -> void:
-	hits -= damage
-	GameManager.add_to_score(10)
-	if hits <= 0:
-		# dead, hide physical body and show explosion particles
-		collision_polygon_2d.disabled = true
-		sprite_2d.visible = false
-		burst_particles_2d.emitting = true
-		SfxPlayer.play_random(SfxPlayer.BLOCK_BURST)
-	else:
-		animation_player.play("hit_flash")
+	if hits > 0:
+		hits -= damage
+		GameManager.add_to_score(10)
+		if hits <= 0:
+			# dead, hide physical body and show explosion particles
+			collision_polygon_2d.set_deferred('disabled',true)
+			sprite_2d.visible = false
+			burst_particles_2d.emitting = true
+			SfxPlayer.play_random(SfxPlayer.BLOCK_BURST)
+		else:
+			animation_player.play("hit_flash")
 
 
 # we show these particles when block is burst, so free when done

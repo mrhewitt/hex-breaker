@@ -2,7 +2,7 @@ extends Node
 
 # dictionary of single sounds to be used with play(...)
 var MUSIC = {
-	theme = preload("res://assets/audio/Menu-Theme.ogg"),
+	theme = preload("res://assets/audio/Sakura-Girl-Daisy-chosic.com_.ogg"),
 	game = preload("res://assets/audio/Loyalty_Freak_Music_-_02_-_High_Technologic_Beat_Explosion(chosic.com).ogg")
 }
 

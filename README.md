@@ -8,11 +8,13 @@ A grid of hex shaped bricks move progressively lower, filling up from the top, w
 turn you launch balls at a selected angle to attempt to destroy them. The number of balls
 you have available to you increases with each round, and from additional bonus pickup 
 
-TBD: See it in action on Itch.io:  [Hex Breaker](https://daddio-dragonslayer.itch.io/)
+See it in action on Itch.io:  [Hex Breaker](https://daddio-dragonslayer.itch.io/hex-breaker)
 
-TBD screenshots
+<p align="center">
+  <img height="320" src="https://img.itch.zone/aW1hZ2UvMzk0OTg1OS8yMzU0OTI1My5wbmc=/250x600/c6lV5P.png" />
+  <img height="320" src="https://img.itch.zone/aW1hZ2UvMzk0OTg1OS8yMzU1MDg5NC5wbmc=/250x600/KNYAUO.png" />
+</p>
 
-Prototype only for now
 
 ## What is the 20 game challenge?
 
@@ -26,3 +28,9 @@ Prototype only for now
 
 Music: https://www.chosic.com/free-music/all/ 
 Title:	High Technologic Beat Explosion
+
+Daisy by Sakura Girl | https://soundcloud.com/sakuragirl_official
+Music promoted by https://www.chosic.com/free-music/all/
+Creative Commons CC BY 3.0
+https://creativecommons.org/licenses/by/3.0/
+ 
