@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ddnv4ois0lm0s"]
+[gd_scene load_steps=14 format=3 uid="uid://ddnv4ois0lm0s"]
 
 [ext_resource type="PackedScene" uid="uid://ddqy4gf7na4l2" path="res://entities/blocks/block.tscn" id="1_65uv8"]
 [ext_resource type="Script" uid="uid://cv7uan04v66km" path="res://entities/blocks/hammer_block.gd" id="2_lvnx7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cpr7y80pxkil6" path="res://assets/blocks/hammer-icon.png" id="3_mbm2d"]
 [ext_resource type="Texture2D" uid="uid://iupeedscjhgo" path="res://assets/blocks/hammer-particle.png" id="4_c64a0"]
 [ext_resource type="PackedScene" uid="uid://cerfhj1g5idly" path="res://entities/blocks/outline_sprite.tscn" id="5_c64a0"]
+[ext_resource type="PackedScene" uid="uid://c8rkujitlkfa7" path="res://entities/blocks/bonus_sound.tscn" id="8_3yxuk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qdc04"]
 resource_local_to_scene = true
@@ -68,6 +69,7 @@ color = Color(0.70007324, 0.88688755, 0.96875, 1)
 script = ExtResource("2_lvnx7")
 damage_min = 1
 damage_max = 3
+has_been_hit = false
 
 [node name="Sprite2D" parent="." index="1"]
 material = SubResource("ShaderMaterial_qdc04")
@@ -94,5 +96,7 @@ lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_c64a0")
+
+[node name="BonusSound" parent="." index="9" instance=ExtResource("8_3yxuk")]
 
 [connection signal="animation_finished" from="HammerAnimationPlayer" to="." method="_on_hammer_animation_player_animation_finished"]

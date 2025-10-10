@@ -34,6 +34,7 @@ func take_hit( damage:int = 1 ) -> void:
 		collision_polygon_2d.disabled = true
 		sprite_2d.visible = false
 		burst_particles_2d.emitting = true
+		SfxPlayer.play_random(SfxPlayer.BLOCK_BURST)
 	else:
 		animation_player.play("hit_flash")
 

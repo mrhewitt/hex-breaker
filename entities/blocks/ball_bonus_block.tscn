@@ -26,3 +26,6 @@ one_shot = true
 explosiveness = 1.0
 randomness = 0.07
 process_material = ExtResource("5_hwwae")
+
+[node name="BonusSound" parent="." index="6"]
+sfx_name = "ball_bonus"

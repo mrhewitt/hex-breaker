@@ -63,7 +63,7 @@ var level: int = 1:
 var row_mode: RowMode = RowMode.ODD_R
 #var y_offset: float = 0
 var level_node: Control = null
-var top_row:int = MAX_ROWS
+var top_row:int = 0
 # when a block moves below this y position its game over
 var death_y: float = 0
 
@@ -106,24 +106,30 @@ func create_row() -> void:
 	var block_count = 1 if level < MAX_LEVEL_LINEAR_HITS else randi_range(1,3)
 	var move_tween: Tween = create_tween().parallel()
 	move_tween.finished.connect( block_drop_complete.emit )
+	
 	for i in range(0, block_count):
 		var column = available_slots.pick_random()
 		available_slots.erase(column)
 		
-		var block
-		if i == block_count+30:
-			block = SPLITTER_BONUS_BLOCK.instantiate()
-			level_node.add_child(block)
-		else:
-			block = BLOCK.instantiate()
-			level_node.add_child(block)
-			block.hits = get_hits_to_allocate()
-		block.grid_position = Vector2i(column,top_row)
-		# animate blocks appearance so it drops in from above
-		var target_y: float = block.position.y
-		block.position.y = -HEX_RADIUS
-		move_tween.tween_property(block, 'position:y', target_y, randf_range(0.05,0.25))
+		var block = BLOCK.instantiate()
+		add_block(block, column, move_tween)
+		block.hits = get_hits_to_allocate()
 	
+	# add bonus blocks, 
+	if true:
+		var block = BONUS_BLOCKS.pick_random().instantiate()
+		add_block(block, available_slots.pick_random(), move_tween)
+		
+		
+func add_block( block: Node2D, column: int, move_tween: Tween ) -> void:
+	level_node.find_child('BlockList').add_child(block)
+	block.grid_position = Vector2i(column,top_row)
+	
+	# animate blocks appearance so it drops in from above
+	var target_y: float = block.position.y
+	block.position.y = -HEX_RADIUS
+	move_tween.tween_property(block, 'position:y', target_y, randf_range(0.05,0.25))
+
 
 func get_hits_to_allocate() -> int:
 	if level <= MAX_LEVEL_LINEAR_HITS:
@@ -153,27 +159,35 @@ func get_neighbours( grid_position: Vector2i ) -> Array[Block]:
 	
 	
 func clear_bonus_tiles() -> void:
+	var sound_played := false
 	for block in get_tree().get_nodes_in_group(Groups.BONUS_BLOCK):
-		var move_tween = create_tween()
-		move_tween.tween_property(block, 'position:y', level_node.get_rect().size.y, 0.4 + randf_range(0.0,0.4))
-		move_tween.finished.connect(block.queue_free)
+		if block.has_been_hit:
+			if !sound_played:
+				SfxPlayer.play(SfxPlayer.BONUS_LEAVE)
+				sound_played = true
+			var move_tween = create_tween()
+			move_tween.tween_property(block, 'position:y', level_node.get_rect().size.y, 0.4 + randf_range(0.0,0.4))
+			move_tween.finished.connect(block.queue_free)
 	
 	
 # move all blocks down 
 func move_down() -> void:
 	#y_offset += ROW_SPACING
-	top_row -= 1 
+	top_row += 1 
 	
 	var move_tween: Tween = null
-	var start_delay: float = 0.0
-	for block in get_tree().get_nodes_in_group(Groups.BLOCK):
-		# animate blocks downward movement, add a slight delay so it looks like thay
-		# fall, use row index to determine delay (as blocks may not be in order in
+	if level_node.find_child('BlockList').get_child_count() > 0:
 		move_tween = create_tween()
-		#var start_delay: float = ((MAX_ROWS-block.grid_position.y) * 0.2) + (0.075 + (block.grid_position.x*0.025))
-		move_tween.tween_interval(start_delay)
-		start_delay += 0.05
-		move_tween.tween_property(block, 'position:y', block.position.y + ROW_SPACING, 0.05)
+		move_tween.set_parallel()
+		var start_delay: float = 0.0
+		for block in level_node.find_child('BlockList').get_children():
+			# animate blocks downward movement, add a slight delay so it looks like thay
+			# fall, use row index to determine delay (as blocks may not be in order in
+		#	move_tween = create_tween()
+			#var start_delay: float = ((MAX_ROWS-block.grid_position.y) * 0.2) + (0.075 + (block.grid_position.x*0.025))
+		#	move_tween.tween_interval(start_delay)
+			start_delay += 0.05
+			move_tween.tween_property(block, 'position:y', block.position.y + ROW_SPACING, 0.05).set_delay(start_delay)
 	
 	# attach finsih event to final move tween to create new row once done animating
 	# existing rows down, if no existing rows, go direct to create new row

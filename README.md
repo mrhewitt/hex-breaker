@@ -24,4 +24,5 @@ Prototype only for now
 
 ## Credits
 
-TBD
+Music: https://www.chosic.com/free-music/all/ 
+Title:	High Technologic Beat Explosion

@@ -1,14 +1,35 @@
 extends Node
 
+const BLOCK_BURST = 'block_burst'
+const BONUS_LEAVE = 'bonus_leave'
+const START_CLICK = 'start_click'
+const BALL_BONUS = 'ball_bonus'
+const SHIELD_BONUS = 'shield_bonus'
+const SPLITTER_BONUS = 'splitter_bonus'
+const PAUSE_BUTTON = 'pause_button'
+const DROP_BUTTON = 'drop_button'
+const MOVE_START_POINT = 'start_point'
+
 # list of sounds to be used with play_random, a sound will be selected at random
 # from list of options for given key
 const SFX_RANDOM = {
-
+	BLOCK_BURST: [
+		preload("res://assets/audio/Balloon_Pop-003.ogg"),
+		preload("res://assets/audio/Balloon_Pop-004.ogg"),
+		preload("res://assets/audio/Balloon_Pop-005.ogg")
+	]
 }
 
 # dictionary of single sounds to be used with play(...)
 var SFX = {
-
+	BONUS_LEAVE: preload("res://assets/audio/Movement_Whoosh_Long-005.ogg"),
+	START_CLICK: preload("res://assets/audio/Synth_Button-015.ogg"),
+	BALL_BONUS: preload("res://assets/audio/Positive_Button_Collect_-022.ogg"),
+	SHIELD_BONUS: preload("res://assets/audio/Power_UP-010.ogg"),
+	SPLITTER_BONUS: preload("res://assets/audio/Bounce_Boing-008.ogg"),
+	PAUSE_BUTTON: preload("res://assets/audio/Chimes_Harp-017.ogg"),
+	DROP_BUTTON: preload("res://assets/audio/Power_DOWN-008.ogg"),
+	MOVE_START_POINT: preload("res://assets/audio/Movement_Whoosh_Short-017.ogg")
 }
 
 func play( sound_key: String ) -> void:

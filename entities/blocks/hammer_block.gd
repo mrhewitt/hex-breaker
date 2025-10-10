@@ -5,6 +5,8 @@ class_name HammerBlock
 @export_range(1,3,1) var damage_min: int = 1
 @export_range(1,3,1) var damage_max: int = 3
 
+@export var has_been_hit: bool = false
+
 @onready var hammer_animation_player: AnimationPlayer = $HammerAnimationPlayer
 @onready var hammer_particles_2d: GPUParticles2D = $HammerParticles2D
 @onready var default_scale: Vector2 = scale
@@ -22,6 +24,7 @@ func _ready() -> void:
 	
 	
 func take_hit( _damage:int = 1 ) -> void:
+	has_been_hit = true
 	outline_sprite.show_outline()
 	if scale_tween == null or !scale_tween.is_valid():
 		# expand block to make it look like it "hammers" its neighbours

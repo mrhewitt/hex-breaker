@@ -12,3 +12,6 @@ texture = null
 
 [node name="IconSprite" type="Sprite2D" parent="." index="3"]
 texture = ExtResource("3_s64k0")
+
+[node name="BonusSound" parent="." index="4"]
+sfx_name = "splitter_bonus"

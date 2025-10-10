@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8rkujitlkfa7"]
+
+[ext_resource type="Script" uid="uid://c5iqkotmdm2k2" path="res://entities/blocks/bonus_sound.gd" id="1_5kknt"]
+
+[node name="BonusSound" type="Node"]
+script = ExtResource("1_5kknt")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true

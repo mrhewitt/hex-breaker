@@ -5,6 +5,15 @@ const WORLD = preload("uid://c1h3cc75cwin8")
 @onready var title_screen: Control = $TitleScreen
 
 
+func _ready() -> void:
+	MusicPlayer.play('theme')
+
+
+func show_title_screen() -> void:
+	MusicPlayer.play('theme')
+	title_screen.fade_in()
+	
+	
 func _on_play_button_body_play_started() -> void:
 	title_screen.visible = false
 	
@@ -12,6 +21,7 @@ func _on_play_button_body_play_started() -> void:
 	# manually to main scene tree the top and bottom boundary walls do not
 	# size their collision shapes correctly 
 	var world := WORLD.instantiate()
+	world.title_screen.connect(show_title_screen)
 	add_child(world)
 	world.visible = true
 	world.modulate.a = 0

@@ -15,8 +15,16 @@ func clear_effects() -> void:
 func block_hit(_body: BouncingBall) -> bool:
 	GameManager.extra_balls += 1
 	hide_block()
+	# take it out bonus group in case level ends while we are animating
+	# we dont want it to fall way whilst particles are going
+	remove_from_group(Groups.BONUS_BLOCK)
 	ball_sprite.visible = false
+	emit_particles.call_deferred()
+	return false
+	
+	
+func emit_particles() -> void:
 	gpu_particles_2d.emitting = true
 	await gpu_particles_2d.finished
 	queue_free()
-	return false
+	

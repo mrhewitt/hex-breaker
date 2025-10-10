@@ -9,7 +9,7 @@ signal wall_contact( Vector2 )
 ## i.e. it signifies the round is over
 signal all_balls_docked
 
-const SPEED: float = 600
+const SPEED: float = 900
 
 @export var shield_color: Color
 

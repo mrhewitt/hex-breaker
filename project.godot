@@ -15,6 +15,10 @@ run/main_scene="uid://damidc11hikm4"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://cyvato4v0ndk5"
+
 [autoload]
 
 Screenshot="*res://scripts/globals/screenshot.gd"

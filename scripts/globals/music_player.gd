@@ -2,8 +2,8 @@ extends Node
 
 # dictionary of single sounds to be used with play(...)
 var MUSIC = {
-#	theme = preload("res://assets/audio/8_bit_dub_.mp3"),
-#	game = preload("res://assets/audio/sfx_coin_cluster3.wav")
+	theme = preload("res://assets/audio/Menu-Theme.ogg"),
+	game = preload("res://assets/audio/Loyalty_Freak_Music_-_02_-_High_Technologic_Beat_Explosion(chosic.com).ogg")
 }
 
 var _music_audio_player: AudioStreamPlayer = null

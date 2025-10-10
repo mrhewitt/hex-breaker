@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c1h3cc75cwin8"]
+[gd_scene load_steps=29 format=3 uid="uid://c1h3cc75cwin8"]
 
 [ext_resource type="FontFile" uid="uid://djp7yayy6aac7" path="res://assets/font/Urban Shadow Sans Serif.otf" id="1_mmdvd"]
 [ext_resource type="Script" uid="uid://dyc3yi87eg8v5" path="res://world/world.gd" id="1_tcf2h"]
@@ -10,8 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://bwj40keyvw0lq" path="res://assets/ui-pause-button-hover.png" id="4_sc4t8"]
 [ext_resource type="Texture2D" uid="uid://d37yxvywbrden" path="res://assets/ui-drop-button.png" id="9_4papg"]
 [ext_resource type="PackedScene" uid="uid://c3snm6vd8tyum" path="res://ui/score_label.tscn" id="9_fyhu2"]
+[ext_resource type="Texture2D" uid="uid://cl6q3n37t1vpx" path="res://assets/ui-play-button.png" id="9_m0cxt"]
+[ext_resource type="Texture2D" uid="uid://b4s2smmv2ith0" path="res://assets/ui-play-button-pressed.png" id="10_j34ew"]
 [ext_resource type="Texture2D" uid="uid://suah6tnbji31" path="res://assets/ui-drop-button-hover.png" id="11_ov2xu"]
+[ext_resource type="Texture2D" uid="uid://ykkqu702be0" path="res://assets/ui-play-button-hover.png" id="11_p2iis"]
+[ext_resource type="Texture2D" uid="uid://dv4kpy1htax3r" path="res://assets/ui-stop-button.png" id="12_aysyn"]
 [ext_resource type="Texture2D" uid="uid://cgg3ymr331wpc" path="res://assets/ui-drop-button-disabled.png" id="12_mad0u"]
+[ext_resource type="Texture2D" uid="uid://g30at6lskeer" path="res://assets/ui-stop-button-pressed.png" id="13_o1net"]
+[ext_resource type="Texture2D" uid="uid://b614a8ggh2eam" path="res://assets/ui-stop-button-hover.png" id="14_3ljsx"]
 
 [sub_resource type="Theme" id="Theme_sc4t8"]
 default_font = ExtResource("1_mmdvd")
@@ -161,6 +167,86 @@ position = Vector2(332, 852.00006)
 [node name="LaunchTimer" type="Timer" parent="Level"]
 wait_time = 0.075
 
+[node name="BlockList" type="Node2D" parent="Level"]
+unique_name_in_owner = true
+
+[node name="PauseControl" type="Control" parent="Level"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+z_index = 150
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Level/PauseControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14509805, 0.22745098, 0.36862746, 0.7294118)
+
+[node name="Label" type="Label" parent="Level/PauseControl"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -278.0
+offset_top = -98.0
+offset_right = 278.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 196
+text = "PAUSED!"
+
+[node name="ContinueButton" type="TextureButton" parent="Level/PauseControl"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.0
+offset_top = 77.0
+offset_right = -5.0
+offset_bottom = 205.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("9_m0cxt")
+texture_pressed = ExtResource("10_j34ew")
+texture_hover = ExtResource("11_p2iis")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="StopButton" type="TextureButton" parent="Level/PauseControl"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = 77.0
+offset_right = 136.0
+offset_bottom = 205.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("12_aysyn")
+texture_pressed = ExtResource("13_o1net")
+texture_hover = ExtResource("14_3ljsx")
+ignore_texture_size = true
+stretch_mode = 0
+
 [node name="HUDLower" type="Control" parent="."]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
@@ -206,9 +292,12 @@ disabled = true
 layout_mode = 2
 size_flags_horizontal = 3
 
+[connection signal="pressed" from="HUDUpper/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="base_wall_selected" from="Level/TopWall" to="Level" method="_on_base_wall_selected"]
 [connection signal="base_wall_selected" from="Level/LeftWall" to="Level" method="_on_base_wall_selected"]
 [connection signal="base_wall_selected" from="Level/RightWall" to="Level" method="_on_base_wall_selected"]
 [connection signal="base_wall_selected" from="Level/BottomWall" to="Level" method="_on_base_wall_selected"]
 [connection signal="timeout" from="Level/LaunchTimer" to="Level" method="_on_launch_timer_timeout"]
+[connection signal="pressed" from="Level/PauseControl/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="Level/PauseControl/StopButton" to="." method="_on_stop_button_pressed"]
 [connection signal="pressed" from="HUDLower/HBoxContainer/DropButton" to="." method="_on_drop_button_pressed"]

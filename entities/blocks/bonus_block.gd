@@ -5,12 +5,15 @@ class_name BonusBlock
 	set(pos):
 		position = BlockSpawner.grid_to_pixel(pos)
 
+@export var has_been_hit: bool = false
+
 @onready var outline_sprite: Sprite2D = $OutlineSprite
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
+@onready var bonus_sound: Node = $BonusSound
 
 var hit_list:Array = []
- 
+
 
 # called when a ball hits bonus block, override and do custom processing here
 # return true if hit outline must be shown, false otherwise
@@ -33,14 +36,21 @@ func hide_block() -> void:
 func disable_collisions() -> void:
 	collision_polygon_2d.set_deferred('disabled', true)
 	
+	
+func can_take_hit(body: Node2D) -> bool:
+	return body is BouncingBall
+
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is BouncingBall:
+	if can_take_hit(body):
+		has_been_hit = true
+		
 		# check the hitlist, if this body already hit us, but has not yet left,
 		# i.e. it is pasing through or bouncing back do not take action, as we 
 		# do not want to multiply reward or ui effects
 		if !hit_list.has(body): 
 			hit_list.append(body)
+			bonus_sound.play()
 			if block_hit(body):
 				show_hit()
 			
