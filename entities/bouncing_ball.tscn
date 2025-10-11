@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://e2y85c0juhxl" path="res://entities/bouncing_ball.gd" id="1_b5n3d"]
 [ext_resource type="Texture2D" uid="uid://babakghj6swox" path="res://assets/ball.png" id="2_qid0c"]
-[ext_resource type="PackedScene" uid="uid://cwca3nqjljvq5" path="res://entities/ball_highlight.tscn" id="3_qid0c"]
+[ext_resource type="PackedScene" uid="uid://cwca3nqjljvq5" path="res://components/ball_highlight.tscn" id="3_qid0c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lc4u2"]
 radius = 17.0

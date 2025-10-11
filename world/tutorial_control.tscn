@@ -1,0 +1,144 @@
+[gd_scene load_steps=8 format=3 uid="uid://d57rjxqp80y0"]
+
+[ext_resource type="Script" uid="uid://dsa4wnqaxu33f" path="res://world/tutorial_control.gd" id="1_js183"]
+[ext_resource type="Texture2D" uid="uid://drs5a75mc8qoa" path="res://assets/tutorial/touch-drag.png" id="2_v36ht"]
+[ext_resource type="PackedScene" uid="uid://cwca3nqjljvq5" path="res://components/ball_highlight.tscn" id="3_1sw2o"]
+[ext_resource type="Texture2D" uid="uid://babakghj6swox" path="res://assets/ball.png" id="4_rj5nu"]
+
+[sub_resource type="Animation" id="Animation_kw54a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(259, 895)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/BallHighlight:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_rj5nu"]
+resource_name = "tutorial_level_1"
+length = 1.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0009619707, 0.05, 0.1, 0.3, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(259, 595), Vector2(258, 563), Vector2(259, 595), Vector2(259, 595), Vector2(478, 363), Vector2(478, 363)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/BallHighlight:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v81bm"]
+_data = {
+&"RESET": SubResource("Animation_kw54a"),
+&"tutorial_level_1": SubResource("Animation_rj5nu")
+}
+
+[node name="TutorialControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_js183")
+
+[node name="TutorialLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -181.0
+offset_top = -204.0
+offset_right = 188.0
+offset_bottom = -137.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Touch And Drag"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../TutorialLevel1")
+libraries = {
+&"": SubResource("AnimationLibrary_v81bm")
+}
+
+[node name="TutorialLevel1" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="TutorialLevel1"]
+position = Vector2(259, 895)
+texture = ExtResource("2_v36ht")
+
+[node name="BallHighlight" parent="TutorialLevel1/Sprite2D" instance=ExtResource("3_1sw2o")]
+position = Vector2(-13, -27)
+max_radius = 64.0
+color = Color(0.6431373, 0.8666667, 0.85882354, 1)
+thickness = 4.0
+
+[node name="BallMarker2D" type="Marker2D" parent="."]
+position = Vector2(368, 339)
+
+[node name="BallSprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_rj5nu")

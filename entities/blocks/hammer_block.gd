@@ -1,6 +1,8 @@
 extends Block
 class_name HammerBlock
 
+@export var tutorial_label: String
+
 ## Minimum amount of damage value hammer can apply
 @export_range(1,3,1) var damage_min: int = 1
 @export_range(1,3,1) var damage_max: int = 3

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cwca3nqjljvq5"]
 
-[ext_resource type="Script" uid="uid://ftc5ynwnlpxl" path="res://entities/ball_highlight.gd" id="1_nhup2"]
+[ext_resource type="Script" uid="uid://ftc5ynwnlpxl" path="res://components/ball_highlight.gd" id="1_nhup2"]
 
 [node name="BallHighlight" type="Node2D"]
 script = ExtResource("1_nhup2")

@@ -3,6 +3,9 @@ extends Node
 signal score_updated(score_added:int, score: int)
 #signal top_player_updated(top_player: Dictionary)
 
+## Emitted by bouncing ball once it bounces 3 times on a wall with no block
+signal show_drop_tutorial
+
 var score: int = 0:
 	set(score_in):
 		score = score_in

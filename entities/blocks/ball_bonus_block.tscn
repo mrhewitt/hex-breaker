@@ -3,11 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://c3gl0aagqxsg8" path="res://entities/blocks/bonus_block.tscn" id="1_1af7m"]
 [ext_resource type="Texture2D" uid="uid://babakghj6swox" path="res://assets/ball.png" id="2_77f7k"]
 [ext_resource type="Script" uid="uid://dwk3dxxo5rwcd" path="res://entities/blocks/ball_bonus_block.gd" id="2_hwwae"]
-[ext_resource type="PackedScene" uid="uid://cwca3nqjljvq5" path="res://entities/ball_highlight.tscn" id="3_hwwae"]
+[ext_resource type="PackedScene" uid="uid://cwca3nqjljvq5" path="res://components/ball_highlight.tscn" id="3_hwwae"]
 [ext_resource type="Material" uid="uid://kbimjfdgmplr" path="res://resources/burst_particles.tres" id="5_hwwae"]
 
 [node name="BallBonusBlock" instance=ExtResource("1_1af7m")]
 script = ExtResource("2_hwwae")
+tutorial_label = "Extra Ball Bonus"
 
 [node name="Sprite2D" parent="." index="0"]
 texture = null

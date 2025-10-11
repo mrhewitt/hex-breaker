@@ -46,12 +46,14 @@ _data = {
 [node name="ShieldBonusBlock" instance=ExtResource("1_6mouy")]
 script = ExtResource("2_wakhi")
 icon_highlight_color = Color(0.93621826, 1, 0.18359375, 1)
+tutorial_label = "Extra Base Wall Bounce"
+grid_position = ""
 
 [node name="Sprite2D" parent="." index="0"]
 texture = null
 
 [node name="IconSprite" type="Sprite2D" parent="." index="2"]
-modulate = Color(0.96657526, 1, 0.57216364, 1)
+modulate = Color(0.9652652, 1, 0.55539465, 1)
 texture = ExtResource("3_w33xr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]

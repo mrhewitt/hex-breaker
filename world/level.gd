@@ -11,6 +11,7 @@ enum BallAimState { BLOCKED, WAITING, PREPARING_TO_AIM, AIMING }
 @onready var ball: Node2D = $Ball
 @onready var launch_timer: Timer = $LaunchTimer
 @onready var bottom_wall: BoundaryWall = $BottomWall
+@onready var tutorial_control: TutorialControl = %TutorialControl
 
 # start blocked so opening aimations/hex blocks can be done
 var targeting_state: BallAimState = BallAimState.BLOCKED
@@ -21,7 +22,7 @@ func _ready() -> void:
 	var center_x = get_viewport_rect().size.x/2
 	ball.global_position = Vector2(center_x,bottom_wall.global_position.y - ball.get_ball_radius() )
 	BlockSpawner.block_drop_complete.connect( _on_ready_to_aim )
-	
+	BlockSpawner.show_tutorial.connect( _on_show_tutorial )
 
 func _input(event: InputEvent) -> void:
 	if targeting_state != BallAimState.BLOCKED:
@@ -49,6 +50,7 @@ func _input(event: InputEvent) -> void:
 
 func release_launch() -> void:
 	if targeting_state == BallAimState.AIMING:
+		tutorial_control.visible = false
 		launch_timer.start()
 		ball.launch_line_2d.visible = false
 		targeting_state = BallAimState.BLOCKED
@@ -88,6 +90,10 @@ func move_to_start_point( restart_point: Vector2 ) -> Tween:
 
 func _on_ready_to_aim() -> void:
 	targeting_state = BallAimState.WAITING
+
+
+func _on_show_tutorial(level: int, bonus_block: Node2D) -> void:
+	tutorial_control.show_tutorial(level, bonus_block)
 
 
 func _on_base_wall_selected(base_wall: BoundaryWall) -> void:

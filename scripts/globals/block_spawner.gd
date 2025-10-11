@@ -11,6 +11,9 @@ signal block_drop_complete
 ## emitted when blocks hit bottom of screen and its game over
 signal blocks_reached_bottom
 
+## emitted in early levels when tutorial elements must be added to level
+signal show_tutorial(level, bonus_block)
+
 # all levels up till this will allocate number of hits as
 # level number, greater will allocate level number of 2xlevel
 const MAX_LEVEL_LINEAR_HITS = 5
@@ -69,6 +72,7 @@ var top_row:int = 0
 # when a block moves below this y position its game over
 var death_y: float = 0
 
+
 func set_level_node(_level_node: Control) -> void:
 	level_node = _level_node 
 	death_y = level_node.size.y - ROW_SPACING
@@ -87,7 +91,6 @@ func next_level() -> void:
 func init_level() -> void:
 	clear_bonus_tiles()
 	move_down()
-	#create_row()
 
 
 func start_level() -> void:
@@ -116,10 +119,26 @@ func create_row() -> void:
 		add_block(block, column, move_tween)
 		block.hits = get_hits_to_allocate()
 	
-	# add bonus blocks, about 30% chance of bonus drop
-	if randf_range(0,100) < 33:
-		var block = BONUS_BLOCKS.pick_random().instantiate()
-		add_block(block, available_slots.pick_random(), move_tween)
+	# if first 5 levels place a specific bonus so we can show a turotial
+	var bonus_block: Node2D = null
+	if level <= 5:
+		match level:
+			# 1: - no bonus, tap and drag is tutorial 
+			# extra ball bonus
+			2: bonus_block = BALL_BONUS_BLOCK.instantiate()
+			# shield block
+			3: bonus_block = SHIELD_BLOCK.instantiate()
+			# spliiter block
+			4: bonus_block = SPLITTER_BONUS_BLOCK.instantiate()
+			# hammer block
+			5: bonus_block = HAMMER_BLOCK.instantiate()
+		# once all blocks have droppped into place ask for tutorial to be shown
+		move_tween.finished.connect( show_tutorial.emit.bind(level, bonus_block) )
+	elif randf_range(0,100) < 33:
+		# add bonus blocks, about 30% chance of bonus drop
+		bonus_block = BONUS_BLOCKS.pick_random().instantiate()
+	if bonus_block:
+		add_block(bonus_block, available_slots.pick_random(), move_tween)
 		
 		
 func add_block( block: Node2D, column: int, move_tween: Tween ) -> void:

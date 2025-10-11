@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c0wuyj4v7ofx7" path="res://entities/blocks/bonus_block.gd" id="1_ix4ya"]
 [ext_resource type="Texture2D" uid="uid://b1wct1pen0uul" path="res://assets/blocks/bonus-hex.png" id="2_hc7sm"]
-[ext_resource type="PackedScene" uid="uid://cerfhj1g5idly" path="res://entities/blocks/outline_sprite.tscn" id="3_s7kgy"]
-[ext_resource type="PackedScene" uid="uid://c8rkujitlkfa7" path="res://entities/blocks/bonus_sound.tscn" id="4_hspl0"]
+[ext_resource type="PackedScene" uid="uid://cerfhj1g5idly" path="res://components/outline_sprite.tscn" id="3_s7kgy"]
+[ext_resource type="PackedScene" uid="uid://c8rkujitlkfa7" path="res://components/bonus_sound.tscn" id="4_hspl0"]
 
 [node name="BonusBlock" type="Area2D" groups=["bonus_block"]]
 collision_layer = 8

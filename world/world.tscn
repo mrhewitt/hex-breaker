@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://c1h3cc75cwin8"]
+[gd_scene load_steps=47 format=3 uid="uid://c1h3cc75cwin8"]
 
 [ext_resource type="FontFile" uid="uid://djp7yayy6aac7" path="res://assets/font/Urban Shadow Sans Serif.otf" id="1_mmdvd"]
 [ext_resource type="Script" uid="uid://dyc3yi87eg8v5" path="res://world/world.gd" id="1_tcf2h"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://c67mhvh7xbja8" path="res://world/level.gd" id="3_mmdvd"]
 [ext_resource type="Texture2D" uid="uid://dv7kdcohculf0" path="res://assets/ui-button-paused-pressed.png" id="4_ai45w"]
 [ext_resource type="Texture2D" uid="uid://bwj40keyvw0lq" path="res://assets/ui-pause-button-hover.png" id="4_sc4t8"]
+[ext_resource type="PackedScene" uid="uid://d57rjxqp80y0" path="res://world/tutorial_control.tscn" id="7_j34ew"]
 [ext_resource type="Texture2D" uid="uid://d37yxvywbrden" path="res://assets/ui-drop-button.png" id="9_4papg"]
 [ext_resource type="PackedScene" uid="uid://c3snm6vd8tyum" path="res://ui/score_label.tscn" id="9_fyhu2"]
 [ext_resource type="Texture2D" uid="uid://cl6q3n37t1vpx" path="res://assets/ui-play-button.png" id="9_m0cxt"]
@@ -18,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://cgg3ymr331wpc" path="res://assets/ui-drop-button-disabled.png" id="12_mad0u"]
 [ext_resource type="Texture2D" uid="uid://g30at6lskeer" path="res://assets/ui-stop-button-pressed.png" id="13_o1net"]
 [ext_resource type="Texture2D" uid="uid://b614a8ggh2eam" path="res://assets/ui-stop-button-hover.png" id="14_3ljsx"]
+[ext_resource type="Texture2D" uid="uid://c68ccdcf8hmya" path="res://assets/tutorial/start-point-sheet.png" id="20_p2iis"]
 
 [sub_resource type="Theme" id="Theme_sc4t8"]
 default_font = ExtResource("1_mmdvd")
@@ -49,6 +51,119 @@ texture = ExtResource("12_mad0u")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b2suy"]
 texture = ExtResource("11_ov2xu")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aysyn"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(0, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1net"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(149, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ljsx"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(298, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gi7ib"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(447, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0pnie"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(596, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llyeo"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(745, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tavo"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(894, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8wd0"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(1043, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7vgi"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(1192, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_inp7a"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(1341, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwxdu"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(1490, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwhbe"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(1639, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftqqi"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(1788, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avd5l"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(1937, 0, 149, 147)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ll3gq"]
+atlas = ExtResource("20_p2iis")
+region = Rect2(2086, 0, 149, 147)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jgi7c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aysyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1net")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ljsx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi7ib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0pnie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llyeo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tavo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8wd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7vgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_inp7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwxdu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lwhbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftqqi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_avd5l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ll3gq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="World" type="VBoxContainer"]
 anchors_preset = 15
@@ -118,6 +233,11 @@ layout_mode = 2
 size_flags_vertical = 2
 mouse_filter = 1
 script = ExtResource("3_mmdvd")
+
+[node name="TutorialControl" parent="Level" instance=ExtResource("7_j34ew")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
 
 [node name="TopWall" parent="Level" instance=ExtResource("3_4717r")]
 layout_mode = 1
@@ -266,7 +386,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.14509805, 0.22745098, 0.36862746, 0.7294118)
+color = Color(0.14509805, 0.22745098, 0.36862746, 0.8862745)
 
 [node name="Label" type="Label" parent="Level/GameOverControl"]
 layout_mode = 1
@@ -364,6 +484,15 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_dqqhb")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_h8lre")
 theme_override_styles/focus = SubResource("StyleBoxTexture_b2suy")
 disabled = true
+
+[node name="DropTutorialSprite2D" type="AnimatedSprite2D" parent="HUDLower/HBoxContainer/DropButton"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(92, 95)
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_jgi7c")
+autoplay = "default"
+frame_progress = 0.08362358
 
 [node name="MarginContainer" type="MarginContainer" parent="HUDLower/HBoxContainer"]
 layout_mode = 2

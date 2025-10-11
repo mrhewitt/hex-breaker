@@ -30,6 +30,9 @@ var base_move_tween: Tween = null
 var is_stopped: bool = false
 var is_falling: bool = false
 
+# counts number of times a ball bounces between left/right walls without hitting
+# a block, 3 times indicates user may need to drop, so we then emit drop tutorial
+var wall_bounces: int = 0
 
 func _draw() -> void:
 	if has_bounce_shield:
@@ -86,10 +89,18 @@ func _physics_process(delta: float) -> void:
 						has_bounce_shield = false
 				else:
 					# regular wall, so just try to set a restart point 
-					target.set_contact_point( get_adjusted_contact_point(target) )		
+					target.set_contact_point( get_adjusted_contact_point(target) )
+					# if bouncing on left/right walls count bounce, if we get 3 bounces
+					# in a row show drop tutorial for user
+					if target.side == BoundaryWall.BoundarySide.LEFT or target.side == BoundaryWall.BoundarySide.RIGHT:
+						wall_bounces += 1
+						if wall_bounces == 3:
+							GameManager.show_drop_tutorial.emit()
+					else:
+						wall_bounces = 0
 			elif target.has_method('take_hit'):
 				target.take_hit()
-
+				wall_bounces = 0
 
 func get_ball_radius() -> float:
 	return sprite_2d.texture.get_width()/2.0 

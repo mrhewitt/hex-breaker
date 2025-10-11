@@ -1,4 +1,3 @@
-@tool
 extends BonusBlock
 class_name ShieldBonusBlock
 

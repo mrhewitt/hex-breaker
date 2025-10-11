@@ -1,6 +1,8 @@
 extends Area2D
 class_name BonusBlock
-			
+
+@export var tutorial_label: String
+
 @export var grid_position: Vector2i:
 	set(pos):
 		position = BlockSpawner.grid_to_pixel(pos)

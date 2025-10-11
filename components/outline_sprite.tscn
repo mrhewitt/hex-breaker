@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cerfhj1g5idly"]
 
 [ext_resource type="Texture2D" uid="uid://o4ivxrj5q1lw" path="res://assets/blocks/bonus-outline-hex.png" id="1_g7qgn"]
-[ext_resource type="Script" uid="uid://ttkhnhnv8vx6" path="res://entities/blocks/outline_sprite.gd" id="2_f0ars"]
+[ext_resource type="Script" uid="uid://ttkhnhnv8vx6" path="res://components/outline_sprite.gd" id="2_f0ars"]
 
 [node name="OutlineSprite" type="Sprite2D"]
 visible = false
