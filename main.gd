@@ -6,7 +6,7 @@ const WORLD = preload("uid://c1h3cc75cwin8")
 
 
 func _ready() -> void:
-	MusicPlayer.play('theme')
+	MusicPlayer.play_theme()
 
 
 func show_title_screen() -> void:

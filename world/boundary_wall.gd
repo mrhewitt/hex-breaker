@@ -35,9 +35,13 @@ enum BoundarySide { TOP, BOTTOM, LEFT, RIGHT }
 @onready var wall_body: WallBody = $WallBody
 @onready var default_color: Color = color_rect.color
 
+# track if a start point hint has been shown this game
+static var first_game_contact_point: bool = false
+
 var tween_hit_color: Tween = null
 var restart_point: Vector2
 var has_restart_point: bool = false
+var show_click_hint: bool = false
 var restart_point_instance: RestartPoint = null
 
 # returns the wall isntance that is currently the base wall
@@ -65,6 +69,9 @@ static func clear_all_start_points() -> void:
 
 func _ready() -> void:
 	set_shape.call_deferred()
+	# clear restart point when user starts the level
+	GameManager.aim_at.connect(_on_aim_at)
+	# show restart point when user moves to new level
 	BlockSpawner.level_updated.connect(_on_new_level)
 	color_rect.color = base_wall_color if is_base_wall else default_color
 
@@ -81,6 +88,7 @@ func set_shape() -> void:
 # restored again
 func clear_start_point() -> void:
 	has_restart_point = false
+	show_click_hint = false
 	hide_restart_point()
 
 
@@ -96,7 +104,13 @@ func set_contact_point(point_of_contact: Vector2) -> bool:
 	if !has_restart_point:
 		has_restart_point = true
 		restart_point = point_of_contact
-		return true			# this is first contact in this ball group
+		
+		# if this is the first contact with a wall in entire game, flag that
+		# a click hint must also be shown
+		if !first_game_contact_point:
+			first_game_contact_point = true
+			show_click_hint = true
+		return true			# this is first contact of this wall in this ball group
 	else:
 		return false		# not first contact, restart point already set
 		
@@ -107,13 +121,14 @@ func show_restart_point() -> void:
 		add_child(restart_point_instance)
 		restart_point_instance.global_position = restart_point
 		restart_point_instance.restart_point_selected.connect(_on_select_restart_point)
+		restart_point_instance.show_click_hint = show_click_hint
 	
 	
 func hide_restart_point() -> void:
 	if restart_point_instance != null:
 		restart_point_instance.queue_free()
 		restart_point_instance = null
-
+		
 
 # when new level is set, show spawn points so user can select the,
 func _on_new_level(_level:int) -> void:
@@ -129,3 +144,7 @@ func _on_select_restart_point() -> void:
 	is_base_wall = true
 	# let everyone know about the change
 	base_wall_selected.emit(self)
+	
+
+func _on_aim_at(_point: Vector2) -> void:
+	clear_start_point()

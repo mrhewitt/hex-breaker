@@ -9,12 +9,11 @@ const BOUNCING_BALL = preload("res://entities/bouncing_ball.tscn")
 		balls_left = ball_count
 		update_ball_counter()
 
-@onready var launch_line_2d: Line2D = $LaunchLine2D
+@onready var launch_line_2d: LaunchLine2D = $LaunchLine2D
 @onready var total_balls_label: Label = $TotalBallsLabel
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 var target_point: Vector2
-var preparing_to_fire: bool = false
 var balls_left: int = 1:
 	set(count_in):
 		balls_left = count_in
@@ -40,8 +39,9 @@ func update_ball_counter() -> void:
 
 func show_launch_line_to( point: Vector2 ) -> void:
 	target_point = point
-	var end_point := Vector2( point - global_position ).normalized() * 312
-	launch_line_2d.set_point_position(1, end_point)
+	#var end_point := Vector2( point - global_position ).normalized() * 312
+	launch_line_2d.start_point = global_position
+	launch_line_2d.end_point = target_point #Vector2( point - global_position ).normalized() * 512
 	launch_line_2d.visible = true
 
 
@@ -49,6 +49,6 @@ func launch_ball() -> BouncingBall:
 	modulate.a = 0.25
 	var ball:BouncingBall = BOUNCING_BALL.instantiate()
 	ball.global_position = global_position
-	ball.velocity = Vector2( target_point - global_position ).normalized() * ball.SPEED
+	ball.velocity = Vector2( to_global(launch_line_2d.end_point) - global_position ).normalized() * ball.SPEED
 	balls_left -= 1
 	return ball

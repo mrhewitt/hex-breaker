@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvk5ylsy5av5"]
+[gd_scene load_steps=6 format=3 uid="uid://bvk5ylsy5av5"]
 
 [ext_resource type="Script" uid="uid://5y57gdrptrpo" path="res://entities/ball.gd" id="1_lc4u2"]
 [ext_resource type="Texture2D" uid="uid://babakghj6swox" path="res://assets/ball.png" id="1_yheed"]
 [ext_resource type="FontFile" uid="uid://djp7yayy6aac7" path="res://assets/font/Urban Shadow Sans Serif.otf" id="3_2mxk7"]
+[ext_resource type="PackedScene" uid="uid://584anopyrmt1" path="res://components/launch_line_2d.tscn" id="3_rkec2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rkec2"]
 font = ExtResource("3_2mxk7")
@@ -15,11 +16,8 @@ script = ExtResource("1_lc4u2")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_yheed")
 
-[node name="LaunchLine2D" type="Line2D" parent="."]
+[node name="LaunchLine2D" parent="." instance=ExtResource("3_rkec2")]
 visible = false
-points = PackedVector2Array(0, 0, 101.333336, -124.66667)
-width = 2.0
-default_color = Color(0.973535, 0.9735351, 0.973535, 1)
 
 [node name="TotalBallsLabel" type="Label" parent="."]
 offset_left = -21.0

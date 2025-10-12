@@ -8,6 +8,10 @@ class_name TutorialControl
 @onready var tutorial_level_1: Node2D = $TutorialLevel1
 
 
+func _ready() -> void:
+	GameManager.balls_launched.connect(hide)
+
+
 func show_tutorial(level: int, bonus_block: Node2D) -> void:
 	hide_tutorials()
 	visible = true

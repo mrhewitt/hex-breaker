@@ -58,11 +58,11 @@ func _on_body_entered(body: Node2D) -> void:
 			
 
 
-func _on_body_exited(body: Node2D) -> void:
+#func _on_body_exited(body: Node2D) -> void:
 	# a body left , so remove it from hit list, as bonus blocks are allowed to be
 	# hit again, if a specific bonus is one hit per ball this must be implemented
 	# specifically by the bonus override
-	hit_list.erase(body) 
+#	hit_list.erase(body) 
 
 
 func show_hit() -> void:

@@ -11,16 +11,18 @@ signal restart_game
 @onready var best_score_label: Label = %BestScoreLabel
 @onready var pause_control: Control = %PauseControl
 @onready var game_over_control: Control = %GameOverControl
-@onready var drop_tutorial_sprite_2d: AnimatedSprite2D = %DropTutorialSprite2D
+@onready var click_hint: ClickHint = %ClickHint
 
 var shown_drop_tutorial: bool = false
 
 func start_new_game() -> void:
-	MusicPlayer.play('game')
+	MusicPlayer.play_game_track()
 	GameManager.new_game()
 	HighScoreManager.high_score_updated.connect(_on_new_highscore)
 	_on_new_highscore(HighScoreManager.high_score)
 	
+	# new game so we can show click hints again
+	BoundaryWall.first_game_contact_point = false
 	shown_drop_tutorial = false
 	GameManager.show_drop_tutorial.connect( _on_drop_tutorial )
 	
@@ -38,14 +40,14 @@ func _on_new_highscore(score: int) -> void:
 func _on_level_updated(_level: int) -> void:
 	round_label.text = str(_level)
 	drop_button.disabled = true
-	drop_tutorial_sprite_2d.visible = false
+	click_hint.visible = false
 	best_level_label.text = "Best Level: " + str(BlockSpawner.best_level)
 
 
 func _on_drop_button_pressed() -> void:
 	SfxPlayer.play(SfxPlayer.DROP_BUTTON)
 	drop_button.disabled = true
-	drop_tutorial_sprite_2d.visible = false
+	click_hint.visible = false
 	for ball in get_tree().get_nodes_in_group('bouncing_balls'):
 		ball.drop_to_ground()
 		
@@ -90,5 +92,5 @@ func _on_restart_button_pressed() -> void:
 func _on_drop_tutorial() -> void:
 	# only show "tutorial" first time condition is met
 	if !shown_drop_tutorial:
-		drop_tutorial_sprite_2d.visible = true
+		click_hint.visible = true
 		shown_drop_tutorial = true

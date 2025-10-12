@@ -24,6 +24,7 @@ func _ready() -> void:
 	BlockSpawner.block_drop_complete.connect( _on_ready_to_aim )
 	BlockSpawner.show_tutorial.connect( _on_show_tutorial )
 
+
 func _input(event: InputEvent) -> void:
 	if targeting_state != BallAimState.BLOCKED:
 		if event is InputEventMouseButton:
@@ -40,19 +41,21 @@ func _input(event: InputEvent) -> void:
 		elif event is InputEventMouseMotion:
 			if targeting_state == BallAimState.PREPARING_TO_AIM:
 				if Vector2(start_drag_position-get_global_mouse_position()).length() > 5:
-					ball.show_launch_line_to( get_global_mouse_position() )
+					#ball.show_launch_line_to( get_global_mouse_position() )
+					GameManager.aim_at.emit( get_global_mouse_position() )
 					# clear target points on other walls, we cannot change now we started aiming
-					BoundaryWall.clear_all_start_points()
+					#BoundaryWall.clear_all_start_points()
 					targeting_state = BallAimState.AIMING
 			elif targeting_state == BallAimState.AIMING: 
-				ball.show_launch_line_to( get_global_mouse_position() )
+				#ball.show_launch_line_to( get_global_mouse_position() )
+				GameManager.aim_at.emit( get_global_mouse_position() )
 
 
 func release_launch() -> void:
-	if targeting_state == BallAimState.AIMING:
-		tutorial_control.visible = false
+	if targeting_state == BallAimState.AIMING:		
+		mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+		GameManager.balls_launched.emit()
 		launch_timer.start()
-		ball.launch_line_2d.visible = false
 		targeting_state = BallAimState.BLOCKED
 		BlockSpawner.start_level()
 		
@@ -90,7 +93,8 @@ func move_to_start_point( restart_point: Vector2 ) -> Tween:
 
 func _on_ready_to_aim() -> void:
 	targeting_state = BallAimState.WAITING
-
+	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	
 
 func _on_show_tutorial(level: int, bonus_block: Node2D) -> void:
 	tutorial_control.show_tutorial(level, bonus_block)

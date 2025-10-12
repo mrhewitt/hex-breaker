@@ -6,6 +6,18 @@ signal score_updated(score_added:int, score: int)
 ## Emitted by bouncing ball once it bounces 3 times on a wall with no block
 signal show_drop_tutorial
 
+## emitted when user starts aiming process so UI elements to reset state
+signal aiming_started
+
+## emitted when user has move aiming line
+signal aim_at(point: Vector2)
+
+# sort of a suplicate for level_started, at end pf project I wanted to experiment
+# with using signals more, so when doing some of the tutorial elements I tried a more
+# signal oriented approach, hence sort of mish-mosh in code
+## emitted when user releases mouse and launchs balls
+signal balls_launched
+
 var score: int = 0:
 	set(score_in):
 		score = score_in
