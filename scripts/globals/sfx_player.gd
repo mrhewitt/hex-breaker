@@ -34,6 +34,13 @@ var SFX = {
 	GAME_OVER: preload("res://assets/audio/Losing_Jingle-026.ogg")
 }
 
+var mute: bool = false:
+	set(_mute): 
+		mute = _mute
+		var audio_bus_idx: int = AudioServer.get_bus_index('SFX')
+		AudioServer.set_bus_mute(audio_bus_idx, mute)
+
+
 func play( sound_key: String ) -> void:
 	if SFX.has(sound_key):
 		play_stream( SFX[sound_key] )
@@ -57,6 +64,10 @@ func play_random( group: String) -> void:
 
 
 func play_stream(sound_to_play: AudioStream, parent: Node = null ) -> void:
+	# do nothing if sfx off, dont waste performance playing unheard sounds
+	if mute:
+		return
+		
 	# create a new audio player and put it in the scene
 	# if you forgot to add_child() to incklude it in a scene
 	# your sound will not play 

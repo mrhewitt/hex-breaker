@@ -44,6 +44,7 @@ offset_right = 196.0
 offset_bottom = 196.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_85xi2")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_85xi2")
 theme_override_styles/hover = SubResource("StyleBoxTexture_85xi2")

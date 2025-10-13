@@ -121,6 +121,6 @@ visible = false
 scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_jgi7c")
 autoplay = "default"
-frame_progress = 0.93510693
+frame_progress = 0.48907316
 offset = Vector2(32, 26)
 script = ExtResource("2_d7y4s")

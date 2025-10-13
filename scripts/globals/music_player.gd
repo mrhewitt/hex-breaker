@@ -10,9 +10,20 @@ var MUSIC = {
 	]
 }
 
+var mute: bool = false:
+	set(_mute): 
+		mute = _mute
+		var audio_bus_idx: int = AudioServer.get_bus_index('Music')
+		AudioServer.set_bus_mute(audio_bus_idx, mute)		
+		if _music_audio_player != null:
+			if mute:			
+				_music_audio_player.stop()  # stop current music track if we are muted
+			else:			
+				_music_audio_player.play()	 # start current music again now we are unmuted
+			
 var _music_audio_player: AudioStreamPlayer = null
 var available_game_tracks: Array = []
-
+ 
 
 func play_theme() -> void:
 	play_stream( MUSIC.theme )
@@ -44,7 +55,9 @@ func play_stream(sound_to_play: AudioStream, loop: bool = true) -> void:
 			_music_audio_player.connect("finished", _on_music_finished)
 		
 	_music_audio_player.stream = sound_to_play
-	_music_audio_player.play.call_deferred() 
+	# only start it actually playing if we are not muted
+	if !mute:
+		_music_audio_player.play.call_deferred() 
 	
 	
 func _on_music_finished() -> void:

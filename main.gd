@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func show_title_screen() -> void:
-	MusicPlayer.play('theme')
+	MusicPlayer.play_theme()
 	title_screen.fade_in()
 	
 	

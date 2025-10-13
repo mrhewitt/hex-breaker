@@ -106,8 +106,9 @@ func create_row() -> void:
 		available_slots.append(i)
 
 	# work out maximum blocks, if low level then its just one, otherwise
-	# it is netweem 1-3
-	var block_count = 1 if level < MAX_LEVEL_LINEAR_HITS else randi_range(1,3)
+	# it is netweem 1-4, after level 20 min 2, after level 30 min 3, and 40 always 4
+	var min_blocks = max(1, min(4, level/10))
+	var block_count = 1 if level < MAX_LEVEL_LINEAR_HITS else randi_range(1,4)
 	var move_tween: Tween = create_tween().parallel()
 	move_tween.finished.connect( block_drop_complete.emit )
 	

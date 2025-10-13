@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://36p4vqa1iaw6"]
+[gd_scene load_steps=8 format=3 uid="uid://36p4vqa1iaw6"]
 
 [ext_resource type="Texture2D" uid="uid://bigjpgu5xrtg1" path="res://assets/title-logo.png" id="1_bor1v"]
 [ext_resource type="Script" uid="uid://ntjeyfeh0csi" path="res://ui/title_screen.gd" id="1_qer0c"]
 [ext_resource type="PackedScene" uid="uid://b1b8up1icmvhq" path="res://ui/play_button_body.tscn" id="2_qer0c"]
+[ext_resource type="Texture2D" uid="uid://bj426jfnpy64y" path="res://assets/ui-sfx-button.png" id="4_l1ku3"]
+[ext_resource type="Texture2D" uid="uid://btph3yaa0g781" path="res://assets/ui-sfx-button-hover.png" id="5_6qcwj"]
+[ext_resource type="Texture2D" uid="uid://ds40p7ihpdpex" path="res://assets/ui-music-button.png" id="6_wa5rm"]
+[ext_resource type="Texture2D" uid="uid://bth5iui55e3tf" path="res://assets/ui-music-button-hover.png" id="7_sfunj"]
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -34,4 +38,34 @@ polygon = PackedVector2Array(361, 453, 434, 505, 537, 451, 723, 477, 719, 1267, 
 [node name="PlayButtonBody" parent="." instance=ExtResource("2_qer0c")]
 position = Vector2(289, 778)
 
+[node name="SfxButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_l1ku3")
+texture_pressed = ExtResource("5_6qcwj")
+texture_hover = ExtResource("5_6qcwj")
+texture_focused = ExtResource("4_l1ku3")
+
+[node name="MusicButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_top = 64.0
+offset_right = -64.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6_wa5rm")
+texture_pressed = ExtResource("7_sfunj")
+texture_hover = ExtResource("7_sfunj")
+texture_focused = ExtResource("6_wa5rm")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="play_pressed" from="PlayButtonBody" to="." method="_on_play_button_body_play_pressed"]
+[connection signal="pressed" from="SfxButton" to="." method="_on_sfx_button_pressed"]
+[connection signal="pressed" from="MusicButton" to="." method="_on_music_button_pressed"]
